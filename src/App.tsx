@@ -9,7 +9,6 @@ import Tools from "./components/Tools";
 import Modules from "./components/Modules";
 import Prospecting from "./components/Prospecting";
 import RevenueCalculator from "./components/RevenueCalculator";
-import SiteTypes from "./components/SiteTypes";
 import WhatsIncluded from "./components/WhatsIncluded";
 import Bonuses from "./components/Bonuses";
 import VideoShowcase from "./components/VideoShowcase";
@@ -41,7 +40,6 @@ function App() {
         <Modules />
         <Prospecting />
         <RevenueCalculator />
-        <SiteTypes />
         <WhatsIncluded />
         <Bonuses />
         <VideoShowcase />
