@@ -12,6 +12,7 @@ import RevenueCalculator from "./components/RevenueCalculator";
 import SiteTypes from "./components/SiteTypes";
 import WhatsIncluded from "./components/WhatsIncluded";
 import Bonuses from "./components/Bonuses";
+import VideoShowcase from "./components/VideoShowcase";
 import Results from "./components/Results";
 import WhoFor from "./components/WhoFor";
 import WhoNotFor from "./components/WhoNotFor";
@@ -43,6 +44,7 @@ function App() {
         <SiteTypes />
         <WhatsIncluded />
         <Bonuses />
+        <VideoShowcase />
         <Results />
         <WhoFor />
         <WhoNotFor />
