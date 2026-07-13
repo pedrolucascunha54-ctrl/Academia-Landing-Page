@@ -10,5 +10,5 @@ export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICo
 )}`;
 
 export const PRICE_ORIGINAL = "R$ 997";
-export const PRICE_PROMO = "R$ 297,00";
-export const PRICE_INSTALLMENTS = "ou 12x de R$ 29,70";
+export const PRICE_PROMO = "R$ 137,00";
+export const PRICE_INSTALLMENTS = "ou 12x de R$ 11,42";
