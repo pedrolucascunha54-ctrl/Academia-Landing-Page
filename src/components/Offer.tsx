@@ -1,4 +1,4 @@
-import { CheckCircle2, ShieldCheck, Lock, Zap } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Lock, Zap, Flame } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import { CHECKOUT_URL, PRICE_ORIGINAL, PRICE_PROMO, PRICE_INSTALLMENTS } from "../lib/config";
@@ -46,6 +46,10 @@ export default function Offer() {
                 {PRICE_PROMO}
               </span>
               <span className="text-sm text-muted">{PRICE_INSTALLMENTS}</span>
+              <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-violet/40 bg-violet/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-violet">
+                <Flame className="h-3.5 w-3.5" />
+                Por tempo limitado
+              </span>
             </div>
 
             <a
