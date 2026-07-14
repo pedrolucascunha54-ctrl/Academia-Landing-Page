@@ -1,3 +1,4 @@
+import SmoothScrollProvider from "./components/SmoothScrollProvider";
 import ScrollProgress from "./components/ScrollProgress";
 import TopBar from "./components/TopBar";
 import Header from "./components/Header";
@@ -26,37 +27,39 @@ import MobileStickyCTA from "./components/MobileStickyCTA";
 
 function App() {
   return (
-    <div className="pb-20 sm:pb-0">
-      <ScrollProgress />
-      <TopBar />
-      <Header />
+    <SmoothScrollProvider>
+      <div className="pb-20 sm:pb-0">
+        <ScrollProgress />
+        <TopBar />
+        <Header />
 
-      <main>
-        <Hero />
-        <AuthorityMarquee />
-        <Opportunity />
-        <HowItWorks />
-        <Tools />
-        <Modules />
-        <Prospecting />
-        <RevenueCalculator />
-        <WhatsIncluded />
-        <Bonuses />
-        <VideoShowcase />
-        <Results />
-        <WhoFor />
-        <WhoNotFor />
-        <Instructor />
-        <Offer />
-        <Guarantee />
-        <FAQ />
-        <FinalCTA />
-      </main>
+        <main>
+          <Hero />
+          <AuthorityMarquee />
+          <Opportunity />
+          <HowItWorks />
+          <Tools />
+          <Modules />
+          <Prospecting />
+          <RevenueCalculator />
+          <WhatsIncluded />
+          <Bonuses />
+          <VideoShowcase />
+          <Results />
+          <WhoFor />
+          <WhoNotFor />
+          <Instructor />
+          <Offer />
+          <Guarantee />
+          <FAQ />
+          <FinalCTA />
+        </main>
 
-      <Footer />
-      <WhatsAppButton />
-      <MobileStickyCTA />
-    </div>
+        <Footer />
+        <WhatsAppButton />
+        <MobileStickyCTA />
+      </div>
+    </SmoothScrollProvider>
   );
 }
 

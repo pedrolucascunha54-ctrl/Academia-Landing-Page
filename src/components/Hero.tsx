@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, PlayCircle, TrendingUp, MessageSquareText } from "lucide-react";
 import Container from "./ui/Container";
@@ -12,13 +13,50 @@ const INDICATORS = [
 ];
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Pause the background video once it scrolls out of view so it doesn't
+  // keep decoding in the background while the rest of the page plays.
+  useLayoutEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        const v = videoRef.current;
+        if (!v) return;
+        if (entry.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      },
+      { rootMargin: "100px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="inicio"
       className="relative min-h-[92vh] w-full overflow-hidden pt-16 pb-20 sm:pt-20"
     >
+      {/* background video */}
+      <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
+        <video
+          ref={videoRef}
+          src="/videos/hero-bg.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="h-full w-full object-cover opacity-40"
+        />
+      </div>
+
       {/* background glow */}
       <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[#020611]/70" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(122,66,255,0.18),transparent_45%),radial-gradient(circle_at_80%_15%,rgba(0,191,255,0.16),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(37,230,255,0.10),transparent_50%)]" />
         <div
           className="absolute inset-0 opacity-[0.05]"

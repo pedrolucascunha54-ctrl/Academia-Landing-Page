@@ -1,6 +1,7 @@
 import { Flame, Rocket, PackageX } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
+import ScrollVideoSection from "./ScrollVideoSection";
 
 const CARDS = [
   {
@@ -22,37 +23,45 @@ const CARDS = [
 
 export default function Opportunity() {
   return (
-    <section className="relative w-full py-24 sm:py-28">
-      <Container>
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <h2 className="font-display text-3xl font-bold leading-tight text-paper sm:text-4xl">
+    <>
+      <ScrollVideoSection
+        video="/videos/oportunidade.mp4"
+        direction="left"
+        eyebrow="A oportunidade"
+        heading={
+          <>
             Empresas precisam de sites. Você pode aprender a{" "}
             <span className="text-gradient">entregar essa solução</span>.
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">
-            Todos os dias, profissionais, comércios e empresas perdem clientes por não
-            possuírem um site profissional. Com as ferramentas certas, você pode criar
-            soluções completas em menos tempo e transformar essa demanda em uma nova
-            fonte de renda.
-          </p>
-        </Reveal>
+          </>
+        }
+      >
+        <p className="max-w-md text-base leading-relaxed text-muted sm:text-lg">
+          Todos os dias, profissionais, comércios e empresas perdem clientes por não
+          possuírem um site profissional. Com as ferramentas certas, você pode criar
+          soluções completas em menos tempo e transformar essa demanda em uma nova
+          fonte de renda.
+        </p>
+      </ScrollVideoSection>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-3">
-          {CARDS.map(({ icon: Icon, title, text }, i) => (
-            <Reveal key={title} delay={i * 0.1}>
-              <div className="glass group h-full rounded-2xl p-7 transition-transform hover:-translate-y-1.5">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-neon/20 to-violet/20 border border-white/10">
-                  <Icon className="h-6 w-6 text-cyan" strokeWidth={1.8} />
+      <section className="relative w-full py-24 sm:py-28">
+        <Container>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {CARDS.map(({ icon: Icon, title, text }, i) => (
+              <Reveal key={title} delay={i * 0.1}>
+                <div className="glass group h-full rounded-2xl p-7 transition-transform hover:-translate-y-1.5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-neon/20 to-violet/20 border border-white/10">
+                    <Icon className="h-6 w-6 text-cyan" strokeWidth={1.8} />
+                  </div>
+                  <h3 className="mt-5 font-display text-xl font-semibold text-paper">
+                    {title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{text}</p>
                 </div>
-                <h3 className="mt-5 font-display text-xl font-semibold text-paper">
-                  {title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{text}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
-    </section>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+    </>
   );
 }
