@@ -68,11 +68,10 @@ export default function ScrollVideoSection({
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const fromX = direction === "left" ? -100 : 100;
       const textChildren = textRef.current ? Array.from(textRef.current.children) : [];
 
-      gsap.set(videoWrapRef.current, { xPercent: fromX, opacity: 0 });
-      gsap.set(textChildren, { x: fromX * -0.5, opacity: 0 });
+      gsap.set(videoWrapRef.current, { yPercent: -100, opacity: 0 });
+      gsap.set(textChildren, { y: -30, opacity: 0 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -86,14 +85,14 @@ export default function ScrollVideoSection({
       });
 
       tl.to(videoWrapRef.current, {
-        xPercent: 0,
+        yPercent: 0,
         opacity: 1,
         duration: 0.5,
         ease: "power3.out",
       }).to(
         textChildren,
         {
-          x: 0,
+          y: 0,
           opacity: 1,
           duration: 0.45,
           stagger: 0.12,
