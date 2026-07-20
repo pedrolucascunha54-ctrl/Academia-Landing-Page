@@ -16,6 +16,10 @@ interface ScrollVideoSectionProps {
   muted?: boolean;
   /** Default true. Set false for a one-shot video (e.g. a talking-head clip). */
   loop?: boolean;
+  /** Still image shown before playback starts (instead of plain black) and as a fallback. */
+  poster?: string;
+  /** Default "cover" (fills the box, may crop). Use "contain" to always show the full frame uncropped. */
+  fit?: "cover" | "contain";
 }
 
 export default function ScrollVideoSection({
@@ -27,6 +31,8 @@ export default function ScrollVideoSection({
   children,
   muted = true,
   loop = true,
+  poster,
+  fit = "cover",
 }: ScrollVideoSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoWrapRef = useRef<HTMLDivElement>(null);
@@ -142,7 +148,8 @@ export default function ScrollVideoSection({
               loop={loop}
               playsInline
               preload={muted ? "auto" : "none"}
-              className="h-full w-full object-cover"
+              poster={poster}
+              className={`h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"}`}
             />
           )}
           {shouldLoad && !muted && !hasStarted && (

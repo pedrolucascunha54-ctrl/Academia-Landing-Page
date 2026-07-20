@@ -27,6 +27,8 @@ export default function Instructor() {
         heading="De pedreiro a criador de sites com IA"
         muted={false}
         loop={false}
+        poster="/images/pedro-lucas.jpg"
+        fit="contain"
       >
         <p className="max-w-md text-base leading-relaxed text-muted sm:text-lg">
           Toca o play e ouve a história de quem trocou a obra pelos sites com IA —
