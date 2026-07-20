@@ -93,7 +93,19 @@ h4 {
   color: transparent;
 }
 
+/* No backdrop-filter here on purpose: this class renders on 60-100+ elements
+   across the page (every card in every grid), and backdrop-filter: blur is
+   one of the most expensive properties to composite at that scale — it was
+   the main cause of scroll jank. A flat translucent gradient reads almost
+   identically here since these cards mostly sit over a plain dark bg. */
 .glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Reserve real backdrop-blur for the handful of standout panels that sit
+   over busy/glowing backgrounds and actually benefit from it. */
+.glass-blur {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);

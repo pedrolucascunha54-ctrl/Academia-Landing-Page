@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Play } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,10 @@ interface ScrollVideoSectionProps {
   eyebrow: string;
   heading: ReactNode;
   children: ReactNode;
+  /** Default true (silent looping B-roll). Set false for videos with spoken audio. */
+  muted?: boolean;
+  /** Default true. Set false for a one-shot video (e.g. a talking-head clip). */
+  loop?: boolean;
 }
 
 export default function ScrollVideoSection({
@@ -20,12 +25,17 @@ export default function ScrollVideoSection({
   eyebrow,
   heading,
   children,
+  muted = true,
+  loop = true,
 }: ScrollVideoSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoWrapRef = useRef<HTMLDivElement>(null);
   const videoElRef = useRef<HTMLVideoElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
+  // Muted video: autoplay is fine. Video with sound: browsers block autoplay
+  // with audio, so playback only starts once the viewer taps the play button.
+  const [hasStarted, setHasStarted] = useState(muted);
 
   // Mount the <video> a little before it's visible, so it has time to buffer.
   useLayoutEffect(() => {
@@ -46,7 +56,8 @@ export default function ScrollVideoSection({
 
   // Only actually play the video while the section is on screen — pausing it
   // when scrolled away keeps multiple videos from decoding simultaneously,
-  // which is what was causing the scroll to feel heavy/laggy.
+  // which is what was causing the scroll to feel heavy/laggy. For videos with
+  // sound, this only kicks in after the viewer has started playback once.
   useLayoutEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -55,7 +66,7 @@ export default function ScrollVideoSection({
         const v = videoElRef.current;
         if (!v) return;
         if (entry.isIntersecting) {
-          v.play().catch(() => {});
+          if (hasStarted) v.play().catch(() => {});
         } else {
           v.pause();
         }
@@ -64,7 +75,12 @@ export default function ScrollVideoSection({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [shouldLoad]);
+  }, [shouldLoad, hasStarted]);
+
+  function handleManualPlay() {
+    setHasStarted(true);
+    videoElRef.current?.play().catch(() => {});
+  }
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -122,12 +138,24 @@ export default function ScrollVideoSection({
             <video
               ref={videoElRef}
               src={video}
-              muted
-              loop
+              muted={muted}
+              loop={loop}
               playsInline
-              preload="auto"
+              preload={muted ? "auto" : "none"}
               className="h-full w-full object-cover"
             />
+          )}
+          {shouldLoad && !muted && !hasStarted && (
+            <button
+              type="button"
+              onClick={handleManualPlay}
+              aria-label="Reproduzir vídeo com áudio"
+              className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
+            >
+              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-neon to-violet shadow-[0_0_30px_rgba(0,191,255,0.5)]">
+                <Play className="h-7 w-7 translate-x-0.5 text-[#020611]" fill="currentColor" />
+              </span>
+            </button>
           )}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020611] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent" />
         </div>

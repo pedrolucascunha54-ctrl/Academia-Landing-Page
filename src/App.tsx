@@ -1,4 +1,3 @@
-import SmoothScrollProvider from "./components/SmoothScrollProvider";
 import ScrollProgress from "./components/ScrollProgress";
 import TopBar from "./components/TopBar";
 import Header from "./components/Header";
@@ -13,7 +12,6 @@ import RevenueCalculator from "./components/RevenueCalculator";
 import WhatsIncluded from "./components/WhatsIncluded";
 import Bonuses from "./components/Bonuses";
 import VideoShowcase from "./components/VideoShowcase";
-import Results from "./components/Results";
 import WhoFor from "./components/WhoFor";
 import WhoNotFor from "./components/WhoNotFor";
 import Instructor from "./components/Instructor";
@@ -27,39 +25,36 @@ import MobileStickyCTA from "./components/MobileStickyCTA";
 
 function App() {
   return (
-    <SmoothScrollProvider>
-      <div className="pb-20 sm:pb-0">
-        <ScrollProgress />
-        <TopBar />
-        <Header />
+    <div className="pb-20 sm:pb-0">
+      <ScrollProgress />
+      <TopBar />
+      <Header />
 
-        <main>
-          <Hero />
-          <AuthorityMarquee />
-          <Opportunity />
-          <HowItWorks />
-          <Tools />
-          <Modules />
-          <Prospecting />
-          <RevenueCalculator />
-          <WhatsIncluded />
-          <Bonuses />
-          <VideoShowcase />
-          <Results />
-          <WhoFor />
-          <WhoNotFor />
-          <Instructor />
-          <Offer />
-          <Guarantee />
-          <FAQ />
-          <FinalCTA />
-        </main>
+      <main>
+        <Hero />
+        <AuthorityMarquee />
+        <Opportunity />
+        <HowItWorks />
+        <Tools />
+        <Modules />
+        <Prospecting />
+        <RevenueCalculator />
+        <WhatsIncluded />
+        <Bonuses />
+        <VideoShowcase />
+        <WhoFor />
+        <WhoNotFor />
+        <Instructor />
+        <Offer />
+        <Guarantee />
+        <FAQ />
+        <FinalCTA />
+      </main>
 
-        <Footer />
-        <WhatsAppButton />
-        <MobileStickyCTA />
-      </div>
-    </SmoothScrollProvider>
+      <Footer />
+      <WhatsAppButton />
+      <MobileStickyCTA />
+    </div>
   );
 }
 
