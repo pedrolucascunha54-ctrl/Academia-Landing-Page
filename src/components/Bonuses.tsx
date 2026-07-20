@@ -15,7 +15,7 @@ const BONUSES = [
 export default function Bonuses() {
   return (
     <section className="relative w-full overflow-hidden py-24 sm:py-28">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_30%,rgba(122,66,255,0.22),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_30%,rgba(184,85,46,0.22),transparent_55%)]" />
 
       <Container>
         <Reveal className="mx-auto max-w-2xl text-center">

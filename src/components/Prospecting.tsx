@@ -25,7 +25,7 @@ const FUNNEL = [
 export default function Prospecting() {
   return (
     <section id="prospeccao" className="relative w-full overflow-hidden py-24 sm:py-28">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#050b1f] via-[#07102a] to-[#020611]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#101316] via-[#0a0c0d] to-[#0f1214]" />
       <div className="pointer-events-none absolute -top-20 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-violet/15 blur-[120px]" />
 
       <Container>

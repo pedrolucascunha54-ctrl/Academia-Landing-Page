@@ -3,13 +3,13 @@ import Container from "./ui/Container";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full border-t border-white/8 bg-[#03081a] pb-24 pt-16 sm:pb-16">
+    <footer className="relative w-full border-t border-white/8 bg-[#0a0c0d] pb-24 pt-16 sm:pb-16">
       <Container>
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2.5">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-neon to-violet">
-                <Sparkles className="h-4 w-4 text-[#020611]" strokeWidth={2.5} />
+                <Sparkles className="h-4 w-4 text-[#0f1214]" strokeWidth={2.5} />
               </span>
               <span className="font-display text-sm font-bold text-paper">
                 Academia Sites <span className="text-gradient">com IA</span>

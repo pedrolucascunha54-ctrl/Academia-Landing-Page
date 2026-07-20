@@ -12,7 +12,7 @@ export default function ImageCard({
     // screenshot visible instead of the top/bottom getting clipped by the
     // pinned section's viewport.
     <div className="glass glow-border relative mx-auto aspect-[369/800] h-[58vh] max-h-[560px] w-auto overflow-hidden rounded-[2rem] p-2">
-      <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] bg-[#050a1a]">
+      <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] bg-[#0a0c0d]">
         <img src={src} alt={alt} className="h-full w-full object-contain" loading="lazy" />
       </div>
     </div>

@@ -113,7 +113,7 @@ export default function RevenueCalculator() {
                   {currency(maintenanceRevenue)}
                 </p>
               </div>
-              <div className="rounded-2xl border border-cyan/40 bg-gradient-to-br from-neon/15 to-violet/15 p-5 text-center shadow-[0_0_30px_rgba(0,191,255,0.15)]">
+              <div className="rounded-2xl border border-cyan/40 bg-gradient-to-br from-neon/15 to-violet/15 p-5 text-center shadow-[0_0_30px_rgba(232,163,61,0.15)]">
                 <p className="text-xs uppercase tracking-wider text-cyan">Receita mensal estimada</p>
                 <p className="mt-2 font-display text-3xl font-bold text-gradient">
                   {currency(monthlyRevenue)}

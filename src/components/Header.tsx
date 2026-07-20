@@ -27,14 +27,14 @@ export default function Header() {
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/10 bg-[#020611]/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+          ? "border-b border-white/10 bg-[#0f1214]/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
           : "border-b border-transparent bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
         <a href="#inicio" className="flex items-center gap-2.5 shrink-0">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-neon to-violet shadow-[0_0_20px_rgba(0,191,255,0.45)]">
-            <Sparkles className="h-5 w-5 text-[#020611]" strokeWidth={2.5} />
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-neon to-violet shadow-[0_0_20px_rgba(232,163,61,0.45)]">
+            <Sparkles className="h-5 w-5 text-[#0f1214]" strokeWidth={2.5} />
           </span>
           <span className="font-display text-[15px] sm:text-base font-bold tracking-tight text-paper">
             Academia Sites <span className="text-gradient">com IA</span>
@@ -56,7 +56,7 @@ export default function Header() {
         <div className="hidden lg:block">
           <a
             href={CHECKOUT_URL}
-            className="rounded-full bg-gradient-to-r from-neon to-violet px-5 py-2.5 text-sm font-bold text-[#020611] shadow-[0_0_25px_rgba(0,191,255,0.35)] transition-transform hover:scale-105"
+            className="rounded-full bg-gradient-to-r from-neon to-violet px-5 py-2.5 text-sm font-bold text-[#0f1214] shadow-[0_0_25px_rgba(232,163,61,0.35)] transition-transform hover:scale-105"
           >
             QUERO COMEÇAR
           </a>
@@ -78,7 +78,7 @@ export default function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden border-t border-white/10 bg-[#020611]/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-white/10 bg-[#0f1214]/95 backdrop-blur-xl lg:hidden"
           >
             <nav className="flex flex-col gap-1 px-5 py-4">
               {LINKS.map((link) => (
@@ -94,7 +94,7 @@ export default function Header() {
               <a
                 href={CHECKOUT_URL}
                 onClick={() => setOpen(false)}
-                className="mt-2 rounded-full bg-gradient-to-r from-neon to-violet px-5 py-3 text-center text-sm font-bold text-[#020611]"
+                className="mt-2 rounded-full bg-gradient-to-r from-neon to-violet px-5 py-3 text-center text-sm font-bold text-[#0f1214]"
               >
                 QUERO COMEÇAR
               </a>

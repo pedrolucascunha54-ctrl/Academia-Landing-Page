@@ -22,7 +22,7 @@ export default function VideoCard({
     <div
       className={`glass glow-border relative mx-auto aspect-[9/16] w-full ${maxWidthClass} overflow-hidden rounded-[2rem] p-2`}
     >
-      <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] bg-[#050a1a]">
+      <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] bg-[#0a0c0d]">
         <video
           ref={videoRef}
           src={src}
@@ -39,8 +39,8 @@ export default function VideoCard({
             aria-label="Reproduzir vídeo"
             className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
           >
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-neon to-violet shadow-[0_0_30px_rgba(0,191,255,0.5)]">
-              <Play className="h-6 w-6 translate-x-0.5 text-[#020611]" fill="currentColor" />
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-neon to-violet shadow-[0_0_30px_rgba(232,163,61,0.5)]">
+              <Play className="h-6 w-6 translate-x-0.5 text-[#0f1214]" fill="currentColor" />
             </span>
           </button>
         )}

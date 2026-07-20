@@ -162,7 +162,7 @@ export default function Modules() {
         <Reveal className="mt-12 flex justify-center">
           <a
             href={CHECKOUT_URL}
-            className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-sm font-bold text-[#020611] shadow-[0_0_35px_rgba(0,191,255,0.4)] transition-transform hover:scale-105 sm:text-base"
+            className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"
           >
             QUERO TER ACESSO ÀS AULAS
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

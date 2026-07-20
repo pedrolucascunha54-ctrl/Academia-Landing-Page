@@ -17,7 +17,7 @@ const INCLUDES = [
 export default function Offer() {
   return (
     <section className="relative w-full py-24 sm:py-28">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_20%,rgba(0,191,255,0.12),transparent_50%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_20%,rgba(232,163,61,0.12),transparent_50%)]" />
       <Container>
         <Reveal className="mx-auto mb-14 max-w-2xl text-center">
           <Eyebrow>Sua vez</Eyebrow>
@@ -60,7 +60,7 @@ export default function Offer() {
 
             <a
               href={CHECKOUT_URL}
-              className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-base font-bold text-[#020611] shadow-[0_0_40px_rgba(0,191,255,0.45)] transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5"
+              className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-base font-bold text-[#0f1214] shadow-[0_0_40px_rgba(232,163,61,0.45)] transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5"
             >
               QUERO ENTRAR PARA A ACADEMIA
             </a>

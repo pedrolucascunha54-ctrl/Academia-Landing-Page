@@ -131,7 +131,7 @@ export default function ScrollVideoSection({
     <section
       ref={sectionRef}
       id={id}
-      className="relative h-screen w-full overflow-hidden bg-[#020611]"
+      className="relative h-screen w-full overflow-hidden bg-[#0f1214]"
     >
       <div className="flex h-full w-full flex-col lg:flex-row">
         <div
@@ -159,12 +159,12 @@ export default function ScrollVideoSection({
               aria-label="Reproduzir vídeo com áudio"
               className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
             >
-              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-neon to-violet shadow-[0_0_30px_rgba(0,191,255,0.5)]">
-                <Play className="h-7 w-7 translate-x-0.5 text-[#020611]" fill="currentColor" />
+              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-neon to-violet shadow-[0_0_30px_rgba(232,163,61,0.5)]">
+                <Play className="h-7 w-7 translate-x-0.5 text-[#0f1214]" fill="currentColor" />
               </span>
             </button>
           )}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020611] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0f1214] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent" />
         </div>
 
         <div
@@ -174,7 +174,7 @@ export default function ScrollVideoSection({
           }`}
         >
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan/30 bg-cyan/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-cyan">
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan shadow-[0_0_10px_#25E6FF]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan shadow-[0_0_10px_#4c86b8]" />
             {eyebrow}
           </span>
           <h2 className="font-display text-2xl font-bold leading-tight text-paper sm:text-3xl lg:text-4xl">

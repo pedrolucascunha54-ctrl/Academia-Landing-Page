@@ -25,12 +25,12 @@ function Track() {
 
 export default function AuthorityMarquee() {
   return (
-    <section className="relative w-full overflow-hidden border-y border-white/8 bg-[#040a1c] py-8">
+    <section className="relative w-full overflow-hidden border-y border-white/8 bg-[#15181a] py-8">
       <p className="mx-auto mb-6 max-w-2xl px-5 text-center text-sm font-medium text-paper/90 sm:text-base">
         Tudo o que você precisa para criar, apresentar e vender sites profissionais
       </p>
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#040a1c] to-transparent sm:w-32" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#040a1c] to-transparent sm:w-32" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#15181a] to-transparent sm:w-32" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#15181a] to-transparent sm:w-32" />
       <div className="flex w-max animate-marquee">
         <Track />
         <Track />

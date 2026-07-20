@@ -83,7 +83,7 @@ export default function Instructor() {
         </Container>
       </section>
 
-      <section className="relative w-full bg-[#020611]">
+      <section className="relative w-full bg-[#0f1214]">
         <ScrollCarousel
           items={WORK_VIDEOS}
           label="De onde eu vim"

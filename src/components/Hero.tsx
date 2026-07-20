@@ -56,8 +56,8 @@ export default function Hero() {
 
       {/* background glow */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[#020611]/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(122,66,255,0.18),transparent_45%),radial-gradient(circle_at_80%_15%,rgba(0,191,255,0.16),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(37,230,255,0.10),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[#0f1214]/70" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(184,85,46,0.18),transparent_45%),radial-gradient(circle_at_80%_15%,rgba(232,163,61,0.16),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(76,134,184,0.10),transparent_50%)]" />
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{
@@ -118,7 +118,7 @@ export default function Hero() {
             >
               <a
                 href={CHECKOUT_URL}
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-7 py-4 text-sm font-bold text-[#020611] shadow-[0_0_35px_rgba(0,191,255,0.4)] transition-transform hover:scale-105 sm:text-base"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-7 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"
               >
                 QUERO APRENDER O MÉTODO
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

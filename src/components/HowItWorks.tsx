@@ -33,7 +33,7 @@ const STEPS = [
 export default function HowItWorks() {
   return (
     <section id="metodo" className="relative w-full py-24 sm:py-28">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(0,191,255,0.08),transparent_50%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(232,163,61,0.08),transparent_50%)]" />
       <Container>
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow>O método</Eyebrow>
@@ -49,7 +49,7 @@ export default function HowItWorks() {
             {STEPS.map((step, i) => (
               <Reveal key={step.n} delay={i * 0.08}>
                 <div className="relative flex gap-6 pl-0">
-                  <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#020611] border-2 border-cyan/50 font-display text-sm font-bold text-cyan shadow-[0_0_20px_rgba(37,230,255,0.35)]">
+                  <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0f1214] border-2 border-cyan/50 font-display text-sm font-bold text-cyan shadow-[0_0_20px_rgba(76,134,184,0.35)]">
                     {step.n}
                   </div>
                   <div className="glass flex-1 rounded-2xl p-6">

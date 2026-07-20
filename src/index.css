@@ -1,17 +1,28 @@
 @import "tailwindcss";
 
+/* ----------------------------------------------------------------------
+   Design tokens — "canteiro de obra / prancheta técnica".
+   Trocado de propósito de um visual "SaaS de IA" genérico (preto +
+   gradiente ciano/violeta + Space Grotesk) pra algo que vem da história
+   real por trás do curso: cores de colete refletivo, linha de projeto
+   técnico e tijolo/ferrugem, com tipografia inspirada em sinalização
+   industrial. Os nomes das variáveis de cor (neon/cyan/violet) ficaram
+   os mesmos por baixo do capô — só o hex mudou — pra não precisar tocar
+   nos ~20 componentes que já usam essas classes do Tailwind.
+   ---------------------------------------------------------------------- */
 @theme {
-  --font-sora: "Sora", "Space Grotesk", system-ui, sans-serif;
-  --font-display: "Space Grotesk", "Sora", system-ui, sans-serif;
-  --font-inter: "Inter", system-ui, sans-serif;
+  --font-sora: "IBM Plex Sans", system-ui, sans-serif;
+  --font-display: "Big Shoulders Display", "Archivo Black", system-ui, sans-serif;
+  --font-inter: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono-tech: "IBM Plex Mono", ui-monospace, monospace;
 
-  --color-bg: #020611;
-  --color-bg-deep: #07152e;
-  --color-neon: #00bfff;
-  --color-cyan: #25e6ff;
-  --color-violet: #7a42ff;
-  --color-paper: #f7f9ff;
-  --color-muted: #aab4c8;
+  --color-bg: #0f1214;
+  --color-bg-deep: #08090a;
+  --color-neon: #e8a33d;
+  --color-cyan: #4c86b8;
+  --color-violet: #b8552e;
+  --color-paper: #ece8de;
+  --color-muted: #948d7f;
 
   --animate-marquee: marquee 28s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
@@ -67,11 +78,20 @@ h2,
 h3,
 h4 {
   font-family: var(--font-sora);
+  letter-spacing: -0.01em;
+}
+
+/* Headline face (Big Shoulders) is a condensed display cut — needs tighter
+   leading to read as intentional, not squished. No forced uppercase: some
+   headlines are full conversational sentences (the Hero), and all-caps on
+   those reads as shouting rather than confident. */
+.font-display {
+  line-height: 1.02;
 }
 
 ::selection {
-  background: var(--color-violet);
-  color: var(--color-paper);
+  background: var(--color-neon);
+  color: var(--color-bg);
 }
 
 /* thin premium scrollbar */
@@ -82,15 +102,15 @@ h4 {
   background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--color-neon), var(--color-violet));
+  background: var(--color-neon);
   border-radius: 999px;
 }
 
+/* Solid accent instead of a rainbow gradient — the cyan-to-violet text
+   gradient was one of the most obvious "AI template" tells. A single
+   confident color reads more deliberate. */
 .text-gradient {
-  background: linear-gradient(90deg, var(--color-neon), var(--color-cyan), var(--color-violet));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-neon);
 }
 
 /* No backdrop-filter here on purpose: this class renders on 60-100+ elements
@@ -99,15 +119,40 @@ h4 {
    the main cause of scroll jank. A flat translucent gradient reads almost
    identically here since these cards mostly sit over a plain dark bg. */
 .glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(236, 232, 222, 0.05), rgba(236, 232, 222, 0.02));
+  border: 1px solid rgba(236, 232, 222, 0.1);
+  position: relative;
+}
+
+/* Corner tick marks — a small nod to technical drawings/blueprints,
+   instead of the glow-blur "AI card" look. */
+.glass::before,
+.glass::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid rgba(232, 163, 61, 0.5);
+  pointer-events: none;
+}
+.glass::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.glass::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
 }
 
 /* Reserve real backdrop-blur for the handful of standout panels that sit
    over busy/glowing backgrounds and actually benefit from it. */
 .glass-blur {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(236, 232, 222, 0.06), rgba(236, 232, 222, 0.02));
+  border: 1px solid rgba(236, 232, 222, 0.1);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -121,7 +166,7 @@ h4 {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(0, 191, 255, 0.6), rgba(122, 66, 255, 0.6));
+  background: linear-gradient(135deg, rgba(232, 163, 61, 0.55), rgba(184, 85, 46, 0.4));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

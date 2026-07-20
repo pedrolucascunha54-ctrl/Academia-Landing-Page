@@ -6,7 +6,7 @@ import { CHECKOUT_URL } from "../lib/config";
 export default function FinalCTA() {
   return (
     <section className="relative w-full overflow-hidden py-28 sm:py-32">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_50%,rgba(0,191,255,0.16),transparent_45%),radial-gradient(circle_at_80%_50%,rgba(122,66,255,0.18),transparent_45%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_50%,rgba(232,163,61,0.16),transparent_45%),radial-gradient(circle_at_80%_50%,rgba(184,85,46,0.18),transparent_45%)]" />
       <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan/10 blur-[130px]" />
 
       <Container className="text-center">
@@ -25,7 +25,7 @@ export default function FinalCTA() {
 
           <a
             href={CHECKOUT_URL}
-            className="group mt-10 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-10 py-5 text-base font-bold text-[#020611] shadow-[0_0_45px_rgba(0,191,255,0.45)] transition-transform hover:scale-105"
+            className="group mt-10 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-10 py-5 text-base font-bold text-[#0f1214] shadow-[0_0_45px_rgba(232,163,61,0.45)] transition-transform hover:scale-105"
           >
             QUERO COMEÇAR AGORA
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

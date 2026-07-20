@@ -15,7 +15,7 @@ const SUPPORT_IMAGES = [
 
 export default function Support() {
   return (
-    <section className="relative w-full bg-[#020611]">
+    <section className="relative w-full bg-[#0f1214]">
       <Container className="text-center">
         <Reveal className="mx-auto max-w-2xl pt-24 sm:pt-28">
           <Eyebrow>Suporte</Eyebrow>
