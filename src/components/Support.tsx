@@ -31,9 +31,7 @@ export default function Support() {
 
       <ScrollCarousel
         items={SUPPORT_IMAGES}
-        renderItem={(item) => (
-          <ImageCard src={item.src} alt={item.alt} maxWidthClass="max-w-sm" />
-        )}
+        renderItem={(item) => <ImageCard src={item.src} alt={item.alt} />}
       />
     </section>
   );
