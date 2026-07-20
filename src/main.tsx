@@ -16,6 +16,14 @@ gsap.registerPlugin(ScrollTrigger)
 // triggered recalculation without touching how scroll itself behaves.
 ScrollTrigger.config({ ignoreMobileResize: true })
 
+// The headline/display font (Big Shoulders) has very different metrics from
+// the system-font fallback, so section heights shift once it finishes
+// loading — that happens after ScrollTrigger has already measured pin
+// positions, leaving them stale (this is what caused the jitter to come
+// back). Forcing one refresh once fonts are actually ready re-measures
+// everything against final layout.
+document.fonts.ready.then(() => ScrollTrigger.refresh())
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
