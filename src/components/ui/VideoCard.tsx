@@ -1,7 +1,15 @@
 import { useRef, useState } from "react";
 import { Play } from "lucide-react";
 
-export default function VideoCard({ src }: { src: string }) {
+export default function VideoCard({
+  src,
+  poster,
+  maxWidthClass = "max-w-[260px]",
+}: {
+  src: string;
+  poster?: string;
+  maxWidthClass?: string;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -11,11 +19,14 @@ export default function VideoCard({ src }: { src: string }) {
   };
 
   return (
-    <div className="glass glow-border relative mx-auto aspect-[9/16] w-full max-w-[260px] overflow-hidden rounded-[2rem] p-2">
+    <div
+      className={`glass glow-border relative mx-auto aspect-[9/16] w-full ${maxWidthClass} overflow-hidden rounded-[2rem] p-2`}
+    >
       <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] bg-[#050a1a]">
         <video
           ref={videoRef}
           src={src}
+          poster={poster}
           controls={playing}
           playsInline
           preload="metadata"

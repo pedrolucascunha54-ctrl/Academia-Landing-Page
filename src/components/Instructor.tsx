@@ -2,9 +2,13 @@ import { Code2, Bot, Smartphone, LayoutTemplate } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import ScrollVideoSection from "./ScrollVideoSection";
-import VideoCard from "./ui/VideoCard";
+import VideoCarousel from "./ui/VideoCarousel";
 
-const WORK_VIDEOS = ["/videos/obra-01.mp4", "/videos/obra-02.mp4", "/videos/obra-03.mp4"];
+const WORK_VIDEOS = [
+  { src: "/videos/obra-01.mp4", poster: "/images/obra-01-poster.jpg" },
+  { src: "/videos/obra-02.mp4", poster: "/images/obra-02-poster.jpg" },
+  { src: "/videos/obra-03.mp4", poster: "/images/obra-03-poster.jpg" },
+];
 
 const INSTRUCTOR_NAME = "Pedro Lucas";
 const INSTRUCTOR_BIO =
@@ -73,17 +77,17 @@ export default function Instructor() {
                   </div>
                 ))}
               </div>
-
-              <p className="mt-10 text-xs font-semibold uppercase tracking-wider text-cyan">
-                De onde eu vim
-              </p>
-              <div className="mt-4 grid grid-cols-3 gap-3">
-                {WORK_VIDEOS.map((src) => (
-                  <VideoCard key={src} src={src} />
-                ))}
-              </div>
             </Reveal>
           </div>
+
+          <Reveal delay={0.2} className="mt-16 text-center">
+            <p className="text-xs font-semibold uppercase tracking-wider text-cyan">
+              De onde eu vim
+            </p>
+            <div className="mt-6">
+              <VideoCarousel items={WORK_VIDEOS} />
+            </div>
+          </Reveal>
         </Container>
       </section>
     </>
