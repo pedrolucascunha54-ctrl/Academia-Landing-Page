@@ -2,7 +2,7 @@ import { CheckCircle2, ShieldCheck, Lock, Zap, Flame } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import Eyebrow from "./ui/Eyebrow";
-import { CHECKOUT_URL, PRICE_ORIGINAL, PRICE_PROMO, PRICE_INSTALLMENTS } from "../lib/config";
+import { CHECKOUT_URL } from "../lib/config";
 
 const INCLUDES = [
   "Curso completo",
@@ -52,14 +52,9 @@ export default function Offer() {
             </ul>
 
             <div className="mt-10 flex flex-col items-center gap-1">
-              <span className="text-sm text-muted line-through">{PRICE_ORIGINAL}</span>
-              <span className="font-display text-5xl font-black text-gradient sm:text-6xl">
-                {PRICE_PROMO}
-              </span>
-              <span className="text-sm text-muted">{PRICE_INSTALLMENTS}</span>
-              <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-violet/40 bg-violet/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-violet">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-violet/40 bg-violet/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-violet">
                 <Flame className="h-3.5 w-3.5" />
-                Por tempo limitado
+                Vagas por tempo limitado
               </span>
             </div>
 
