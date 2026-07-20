@@ -32,6 +32,7 @@ function App() {
 
       <main>
         <Hero />
+        <Instructor />
         <AuthorityMarquee />
         <Opportunity />
         <HowItWorks />
@@ -44,7 +45,6 @@ function App() {
         <VideoShowcase />
         <WhoFor />
         <WhoNotFor />
-        <Instructor />
         <Offer />
         <Guarantee />
         <FAQ />
