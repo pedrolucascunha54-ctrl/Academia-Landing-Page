@@ -1,26 +1,23 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AnimatePresence, motion } from "framer-motion";
-import VideoCard from "./VideoCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface CarouselItem {
-  src: string;
-  poster?: string;
-}
-
 /**
- * Pins the section while the viewer scrolls through each video in turn —
- * one scroll step advances to the next video. After the last one, the pin
- * releases and the page continues scrolling normally.
+ * Pins the section while the viewer scrolls through each item in turn — one
+ * scroll step advances to the next item. After the last one, the pin
+ * releases and the page continues scrolling normally. Works with any
+ * content (video cards, image cards, ...) via `renderItem`.
  */
-export default function ScrollVideoCarousel({
+export default function ScrollCarousel<T>({
   items,
+  renderItem,
   label,
 }: {
-  items: CarouselItem[];
+  items: T[];
+  renderItem: (item: T) => ReactNode;
   label?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -71,7 +68,7 @@ export default function ScrollVideoCarousel({
             exit={{ x: direction >= 0 ? -90 : 90, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
-            <VideoCard src={current.src} poster={current.poster} maxWidthClass="max-w-sm" />
+            {renderItem(current)}
           </motion.div>
         </AnimatePresence>
       </div>

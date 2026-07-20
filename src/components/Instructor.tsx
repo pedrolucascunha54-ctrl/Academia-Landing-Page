@@ -2,7 +2,8 @@ import { Code2, Bot, Smartphone, LayoutTemplate } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import ScrollVideoSection from "./ScrollVideoSection";
-import ScrollVideoCarousel from "./ui/ScrollVideoCarousel";
+import ScrollCarousel from "./ui/ScrollCarousel";
+import VideoCard from "./ui/VideoCard";
 
 const WORK_VIDEOS = [
   { src: "/videos/obra-01.mp4", poster: "/images/obra-01-poster.jpg" },
@@ -83,7 +84,13 @@ export default function Instructor() {
       </section>
 
       <section className="relative w-full bg-[#020611]">
-        <ScrollVideoCarousel items={WORK_VIDEOS} label="De onde eu vim" />
+        <ScrollCarousel
+          items={WORK_VIDEOS}
+          label="De onde eu vim"
+          renderItem={(item) => (
+            <VideoCard src={item.src} poster={item.poster} maxWidthClass="max-w-sm" />
+          )}
+        />
       </section>
     </>
   );

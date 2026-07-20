@@ -15,6 +15,7 @@ import VideoShowcase from "./components/VideoShowcase";
 import WhoFor from "./components/WhoFor";
 import WhoNotFor from "./components/WhoNotFor";
 import Instructor from "./components/Instructor";
+import Support from "./components/Support";
 import Offer from "./components/Offer";
 import Guarantee from "./components/Guarantee";
 import FAQ from "./components/FAQ";
@@ -33,6 +34,7 @@ function App() {
       <main>
         <Hero />
         <Instructor />
+        <Support />
         <AuthorityMarquee />
         <Opportunity />
         <HowItWorks />
