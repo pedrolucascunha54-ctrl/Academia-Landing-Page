@@ -83,7 +83,7 @@ export default function VSL() {
               onPlaying={() => setIsBuffering(false)}
               onWaiting={() => setIsBuffering(true)}
               onError={(e) => console.error("VSL video error:", e.currentTarget.error)}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-top"
             />
 
             {!hasStarted && (

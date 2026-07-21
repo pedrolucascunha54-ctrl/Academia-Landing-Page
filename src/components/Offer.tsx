@@ -63,10 +63,10 @@ export default function Offer() {
                   </span>
                   <div className="flex flex-col items-center">
                     <span className="text-sm text-muted line-through">{PRICE_ORIGINAL}</span>
-                    <span className="text-sm text-muted">{PRICE_PROMO} à vista</span>
                     <span className="font-display text-4xl font-bold text-paper sm:text-5xl">
                       {PRICE_INSTALLMENTS}
                     </span>
+                    <span className="mt-1 text-sm text-muted">ou {PRICE_PROMO} à vista</span>
                   </div>
                 </div>
 
