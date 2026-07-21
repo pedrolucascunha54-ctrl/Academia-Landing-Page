@@ -27,8 +27,11 @@ export default function VSL() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="mx-auto mt-12 max-w-3xl">
-          <div className="glass glow-border relative aspect-video overflow-hidden rounded-3xl bg-black">
+        <Reveal delay={0.1} className="-mx-5 mt-12 sm:mx-auto sm:max-w-sm lg:max-w-md">
+          {/* Full-bleed on mobile (vertical video fills the whole screen width),
+              contained card from sm up so a portrait clip doesn't look stretched
+              on wide screens. */}
+          <div className="glass glow-border relative aspect-[9/16] overflow-hidden bg-black sm:rounded-3xl">
             <video
               ref={videoRef}
               src="/videos/vsl.mp4"
@@ -36,7 +39,7 @@ export default function VSL() {
               controls={hasStarted}
               playsInline
               preload="none"
-              className="h-full w-full object-contain"
+              className="h-full w-full object-cover"
             />
             {!hasStarted && (
               <button
