@@ -5,7 +5,7 @@ import Reveal from "./ui/Reveal";
 import Eyebrow from "./ui/Eyebrow";
 import { useWatchGate } from "../context/WatchGate";
 
-const UNLOCK_AT_SECONDS = 3 * 60 + 30;
+const UNLOCK_AT_SECONDS = 4 * 60;
 // Playback speeds the viewer can cycle through — capped at 1.35x so the
 // video can't be sped through faster than that.
 const SPEEDS = [1, 1.15, 1.25, 1.35];
@@ -15,12 +15,17 @@ export default function VSL() {
   const unlockedRef = useRef(false);
   const [hasStarted, setHasStarted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
   const [speedIndex, setSpeedIndex] = useState(0);
   const { unlock } = useWatchGate();
 
   function handlePlay() {
     setHasStarted(true);
-    videoRef.current?.play().catch(() => {});
+    setIsBuffering(true);
+    videoRef.current?.play().catch((err) => {
+      setIsBuffering(false);
+      console.error("VSL play failed:", err);
+    });
   }
 
   function togglePlayback() {
@@ -71,10 +76,13 @@ export default function VSL() {
               controls={false}
               disablePictureInPicture
               playsInline
-              preload="none"
+              preload="metadata"
               onTimeUpdate={handleTimeUpdate}
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
+              onPlaying={() => setIsBuffering(false)}
+              onWaiting={() => setIsBuffering(true)}
+              onError={(e) => console.error("VSL video error:", e.currentTarget.error)}
               className="h-full w-full object-cover"
             />
 
@@ -89,6 +97,12 @@ export default function VSL() {
                   <Play className="h-9 w-9 translate-x-0.5 text-[#0f1214]" fill="currentColor" />
                 </span>
               </button>
+            )}
+
+            {isBuffering && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-neon" />
+              </div>
             )}
 
             {hasStarted && (
