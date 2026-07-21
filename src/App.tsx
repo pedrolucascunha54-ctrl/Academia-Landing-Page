@@ -4,8 +4,6 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import VSL from "./components/VSL";
 import AuthorityMarquee from "./components/AuthorityMarquee";
-import Opportunity from "./components/Opportunity";
-import HowItWorks from "./components/HowItWorks";
 import Tools from "./components/Tools";
 import Modules from "./components/Modules";
 import Prospecting from "./components/Prospecting";
@@ -14,7 +12,6 @@ import WhatsIncluded from "./components/WhatsIncluded";
 import Bonuses from "./components/Bonuses";
 import WhoFor from "./components/WhoFor";
 import WhoNotFor from "./components/WhoNotFor";
-import Instructor from "./components/Instructor";
 import Support from "./components/Support";
 import Offer from "./components/Offer";
 import Guarantee from "./components/Guarantee";
@@ -36,11 +33,8 @@ function App() {
         <main>
           <Hero />
           <VSL />
-          <Instructor />
           <Support />
           <AuthorityMarquee />
-          <Opportunity />
-          <HowItWorks />
           <Tools />
           <Modules />
           <Prospecting />

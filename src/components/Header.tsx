@@ -6,7 +6,7 @@ import { useWatchGate } from "../context/WatchGate";
 
 const LINKS = [
   { label: "Início", href: "#inicio" },
-  { label: "Método", href: "#metodo" },
+  { label: "Método", href: "#vsl" },
   { label: "Conteúdo", href: "#conteudo" },
   { label: "Prospecção", href: "#prospeccao" },
   { label: "Resultados", href: "#resultados" },
