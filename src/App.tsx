@@ -2,6 +2,7 @@ import ScrollProgress from "./components/ScrollProgress";
 import TopBar from "./components/TopBar";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import VSL from "./components/VSL";
 import AuthorityMarquee from "./components/AuthorityMarquee";
 import Opportunity from "./components/Opportunity";
 import HowItWorks from "./components/HowItWorks";
@@ -11,7 +12,6 @@ import Prospecting from "./components/Prospecting";
 import RevenueCalculator from "./components/RevenueCalculator";
 import WhatsIncluded from "./components/WhatsIncluded";
 import Bonuses from "./components/Bonuses";
-import VideoShowcase from "./components/VideoShowcase";
 import WhoFor from "./components/WhoFor";
 import WhoNotFor from "./components/WhoNotFor";
 import Instructor from "./components/Instructor";
@@ -33,6 +33,7 @@ function App() {
 
       <main>
         <Hero />
+        <VSL />
         <Instructor />
         <Support />
         <AuthorityMarquee />
@@ -44,7 +45,6 @@ function App() {
         <RevenueCalculator />
         <WhatsIncluded />
         <Bonuses />
-        <VideoShowcase />
         <WhoFor />
         <WhoNotFor />
         <Offer />

@@ -1,4 +1,3 @@
-import { useLayoutEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, PlayCircle } from "lucide-react";
 import Container from "./ui/Container";
@@ -13,47 +12,8 @@ const INDICATORS = [
 ];
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Pause the background video once it scrolls out of view so it doesn't
-  // keep decoding in the background while the rest of the page plays.
-  useLayoutEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        const v = videoRef.current;
-        if (!v) return;
-        if (entry.isIntersecting) v.play().catch(() => {});
-        else v.pause();
-      },
-      { rootMargin: "100px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      id="inicio"
-      className="relative w-full overflow-hidden pt-16 pb-20 sm:pt-20"
-    >
-      {/* background video */}
-      <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
-        <video
-          ref={videoRef}
-          src="/videos/hero-bg.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="h-full w-full object-cover opacity-40"
-        />
-      </div>
-
+    <section id="inicio" className="relative w-full overflow-hidden pt-16 pb-20 sm:pt-20">
       {/* background glow */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[#0f1214]/70" />
@@ -124,7 +84,7 @@ export default function Hero() {
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
               <a
-                href="#metodo"
+                href="#vsl"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-4 text-sm font-bold text-paper backdrop-blur-sm transition-colors hover:bg-white/10 sm:text-base"
               >
                 <PlayCircle className="h-4 w-4" />

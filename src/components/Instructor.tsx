@@ -1,15 +1,6 @@
 import { Code2, Bot, Smartphone, LayoutTemplate } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
-import ScrollVideoSection from "./ScrollVideoSection";
-import ScrollCarousel from "./ui/ScrollCarousel";
-import VideoCard from "./ui/VideoCard";
-
-const WORK_VIDEOS = [
-  { src: "/videos/obra-01.mp4", poster: "/images/obra-01-poster.jpg" },
-  { src: "/videos/obra-02.mp4", poster: "/images/obra-02-poster.jpg" },
-  { src: "/videos/obra-03.mp4", poster: "/images/obra-03-poster.jpg" },
-];
 
 const INSTRUCTOR_NAME = "Pedro Lucas";
 const INSTRUCTOR_BIO =
@@ -25,22 +16,6 @@ const SKILLS = [
 export default function Instructor() {
   return (
     <>
-      <ScrollVideoSection
-        video="/videos/instrutor.mp4"
-        direction="right"
-        eyebrow="O instrutor"
-        heading="De pedreiro a criador de sites com IA"
-        muted={false}
-        loop={false}
-        poster="/images/pedro-lucas.jpg"
-        fit="contain"
-      >
-        <p className="max-w-md text-base leading-relaxed text-muted sm:text-lg">
-          Toca o play e ouve a história de quem trocou a obra pelos sites com IA —
-          do jeito que aconteceu, sem enfeite.
-        </p>
-      </ScrollVideoSection>
-
       <section className="relative w-full py-24 sm:py-28">
         <Container>
           <div className="grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
@@ -81,16 +56,6 @@ export default function Instructor() {
             </Reveal>
           </div>
         </Container>
-      </section>
-
-      <section className="relative w-full bg-[#0f1214]">
-        <ScrollCarousel
-          items={WORK_VIDEOS}
-          label="De onde eu vim"
-          renderItem={(item) => (
-            <VideoCard src={item.src} poster={item.poster} maxWidthClass="max-w-sm" />
-          )}
-        />
       </section>
     </>
   );
