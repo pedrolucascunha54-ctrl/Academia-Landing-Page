@@ -20,7 +20,36 @@ import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import MobileStickyCTA from "./components/MobileStickyCTA";
-import { WatchGateProvider } from "./context/WatchGate";
+import { WatchGateProvider, useWatchGate } from "./context/WatchGate";
+
+// Nothing below the VSL exists in the page until the visitor has watched it
+// through to the unlock mark — not just the buttons. Rendering nothing means
+// there's literally nothing to scroll to, so the page can't be "skipped" by
+// scrolling past the video either.
+function GatedContent() {
+  const { unlocked } = useWatchGate();
+  if (!unlocked) return null;
+
+  return (
+    <>
+      <Support />
+      <AuthorityMarquee />
+      <Tools />
+      <Modules />
+      <Prospecting />
+      <RevenueCalculator />
+      <WhatsIncluded />
+      <Bonuses />
+      <WhoFor />
+      <WhoNotFor />
+      <Offer />
+      <Guarantee />
+      <FAQ />
+      <FinalCTA />
+      <Footer />
+    </>
+  );
+}
 
 function App() {
   return (
@@ -33,23 +62,9 @@ function App() {
         <main>
           <Hero />
           <VSL />
-          <Support />
-          <AuthorityMarquee />
-          <Tools />
-          <Modules />
-          <Prospecting />
-          <RevenueCalculator />
-          <WhatsIncluded />
-          <Bonuses />
-          <WhoFor />
-          <WhoNotFor />
-          <Offer />
-          <Guarantee />
-          <FAQ />
-          <FinalCTA />
+          <GatedContent />
         </main>
 
-        <Footer />
         <WhatsAppButton />
         <MobileStickyCTA />
       </div>
