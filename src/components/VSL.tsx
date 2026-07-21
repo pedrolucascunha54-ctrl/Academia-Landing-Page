@@ -5,7 +5,7 @@ import Reveal from "./ui/Reveal";
 import Eyebrow from "./ui/Eyebrow";
 import { useWatchGate } from "../context/WatchGate";
 
-const UNLOCK_AT_SECONDS = 4 * 60;
+const UNLOCK_AT_SECONDS = 5 * 60;
 // Playback speeds the viewer can cycle through — capped at 1.35x so the
 // video can't be sped through faster than that.
 const SPEEDS = [1, 1.15, 1.25, 1.35];
