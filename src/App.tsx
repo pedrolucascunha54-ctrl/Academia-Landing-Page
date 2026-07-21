@@ -14,7 +14,6 @@ import WhoFor from "./components/WhoFor";
 import WhoNotFor from "./components/WhoNotFor";
 import Support from "./components/Support";
 import Offer from "./components/Offer";
-import Guarantee from "./components/Guarantee";
 import FAQ from "./components/FAQ";
 import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
@@ -43,7 +42,6 @@ function GatedContent() {
       <WhoFor />
       <WhoNotFor />
       <Offer />
-      <Guarantee />
       <FAQ />
       <FinalCTA />
       <Footer />
