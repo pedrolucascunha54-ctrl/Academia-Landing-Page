@@ -72,7 +72,7 @@ export default function VSL() {
             <video
               ref={videoRef}
               src="/videos/vsl.mp4"
-              poster="/images/pedro-lucas.jpg"
+              poster="/images/vsl-poster.jpg"
               controls={false}
               disablePictureInPicture
               playsInline
@@ -83,7 +83,7 @@ export default function VSL() {
               onPlaying={() => setIsBuffering(false)}
               onWaiting={() => setIsBuffering(true)}
               onError={(e) => console.error("VSL video error:", e.currentTarget.error)}
-              className="h-full w-full object-cover object-top"
+              className="h-full w-full object-cover"
             />
 
             {!hasStarted && (
