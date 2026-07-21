@@ -6,12 +6,16 @@ import Eyebrow from "./ui/Eyebrow";
 import { useWatchGate } from "../context/WatchGate";
 
 const UNLOCK_AT_SECONDS = 3 * 60 + 30;
+// Playback speeds the viewer can cycle through — capped at 1.35x so the
+// video can't be sped through faster than that.
+const SPEEDS = [1, 1.15, 1.25, 1.35];
 
 export default function VSL() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const unlockedRef = useRef(false);
   const [hasStarted, setHasStarted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [speedIndex, setSpeedIndex] = useState(0);
   const { unlock } = useWatchGate();
 
   function handlePlay() {
@@ -24,6 +28,12 @@ export default function VSL() {
     if (!v) return;
     if (v.paused) v.play().catch(() => {});
     else v.pause();
+  }
+
+  function cycleSpeed() {
+    const nextIndex = (speedIndex + 1) % SPEEDS.length;
+    setSpeedIndex(nextIndex);
+    if (videoRef.current) videoRef.current.playbackRate = SPEEDS[nextIndex];
   }
 
   function handleTimeUpdate() {
@@ -82,18 +92,28 @@ export default function VSL() {
             )}
 
             {hasStarted && (
-              <button
-                type="button"
-                onClick={togglePlayback}
-                aria-label={isPlaying ? "Pausar vídeo" : "Continuar vídeo"}
-                className="absolute bottom-4 left-4 flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-paper backdrop-blur-sm transition-colors hover:bg-black/70"
-              >
-                {isPlaying ? (
-                  <Pause className="h-5 w-5" fill="currentColor" />
-                ) : (
-                  <Play className="h-5 w-5 translate-x-0.5" fill="currentColor" />
-                )}
-              </button>
+              <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={togglePlayback}
+                  aria-label={isPlaying ? "Pausar vídeo" : "Continuar vídeo"}
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-paper backdrop-blur-sm transition-colors hover:bg-black/70"
+                >
+                  {isPlaying ? (
+                    <Pause className="h-5 w-5" fill="currentColor" />
+                  ) : (
+                    <Play className="h-5 w-5 translate-x-0.5" fill="currentColor" />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={cycleSpeed}
+                  aria-label="Mudar velocidade de reprodução"
+                  className="flex h-11 items-center justify-center rounded-full bg-black/50 px-3 text-sm font-bold text-paper backdrop-blur-sm transition-colors hover:bg-black/70"
+                >
+                  {SPEEDS[speedIndex]}x
+                </button>
+              </div>
             )}
           </div>
         </Reveal>
