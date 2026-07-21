@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, ArrowRight } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import Eyebrow from "./ui/Eyebrow";
 import { useWatchGate } from "../context/WatchGate";
+import { CHECKOUT_URL } from "../lib/config";
 
 const UNLOCK_AT_SECONDS = 5 * 60;
 // Playback speeds the viewer can cycle through — capped at 1.35x so the
@@ -17,7 +18,7 @@ export default function VSL() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const [speedIndex, setSpeedIndex] = useState(0);
-  const { unlock } = useWatchGate();
+  const { unlocked, unlock } = useWatchGate();
 
   function handlePlay() {
     setHasStarted(true);
@@ -131,6 +132,18 @@ export default function VSL() {
             )}
           </div>
         </Reveal>
+
+        {unlocked && (
+          <Reveal delay={0.1} className="mt-8 flex justify-center">
+            <a
+              href={CHECKOUT_URL}
+              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"
+            >
+              QUERO COMEÇAR AGORA
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          </Reveal>
+        )}
       </Container>
     </section>
   );
