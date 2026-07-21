@@ -23,40 +23,43 @@ import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import MobileStickyCTA from "./components/MobileStickyCTA";
+import { WatchGateProvider } from "./context/WatchGate";
 
 function App() {
   return (
-    <div className="pb-20 sm:pb-0">
-      <ScrollProgress />
-      <TopBar />
-      <Header />
+    <WatchGateProvider>
+      <div className="pb-20 sm:pb-0">
+        <ScrollProgress />
+        <TopBar />
+        <Header />
 
-      <main>
-        <Hero />
-        <VSL />
-        <Instructor />
-        <Support />
-        <AuthorityMarquee />
-        <Opportunity />
-        <HowItWorks />
-        <Tools />
-        <Modules />
-        <Prospecting />
-        <RevenueCalculator />
-        <WhatsIncluded />
-        <Bonuses />
-        <WhoFor />
-        <WhoNotFor />
-        <Offer />
-        <Guarantee />
-        <FAQ />
-        <FinalCTA />
-      </main>
+        <main>
+          <Hero />
+          <VSL />
+          <Instructor />
+          <Support />
+          <AuthorityMarquee />
+          <Opportunity />
+          <HowItWorks />
+          <Tools />
+          <Modules />
+          <Prospecting />
+          <RevenueCalculator />
+          <WhatsIncluded />
+          <Bonuses />
+          <WhoFor />
+          <WhoNotFor />
+          <Offer />
+          <Guarantee />
+          <FAQ />
+          <FinalCTA />
+        </main>
 
-      <Footer />
-      <WhatsAppButton />
-      <MobileStickyCTA />
-    </div>
+        <Footer />
+        <WhatsAppButton />
+        <MobileStickyCTA />
+      </div>
+    </WatchGateProvider>
   );
 }
 

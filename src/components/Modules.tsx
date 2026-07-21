@@ -5,6 +5,7 @@ import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import Eyebrow from "./ui/Eyebrow";
 import { CHECKOUT_URL } from "../lib/config";
+import { useWatchGate } from "../context/WatchGate";
 
 const MODULES = [
   {
@@ -100,6 +101,7 @@ const MODULES = [
 
 export default function Modules() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { unlocked } = useWatchGate();
 
   return (
     <section id="conteudo" className="relative w-full py-24 sm:py-28">
@@ -159,15 +161,17 @@ export default function Modules() {
           })}
         </div>
 
-        <Reveal className="mt-12 flex justify-center">
-          <a
-            href={CHECKOUT_URL}
-            className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"
-          >
-            QUERO TER ACESSO ÀS AULAS
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </a>
-        </Reveal>
+        {unlocked && (
+          <Reveal className="mt-12 flex justify-center">
+            <a
+              href={CHECKOUT_URL}
+              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"
+            >
+              QUERO TER ACESSO ÀS AULAS
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          </Reveal>
+        )}
       </Container>
     </section>
   );

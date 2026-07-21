@@ -2,8 +2,11 @@ import { ArrowRight } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import { CHECKOUT_URL } from "../lib/config";
+import { useWatchGate } from "../context/WatchGate";
 
 export default function FinalCTA() {
+  const { unlocked } = useWatchGate();
+
   return (
     <section className="relative w-full overflow-hidden py-28 sm:py-32">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_50%,rgba(232,163,61,0.16),transparent_45%),radial-gradient(circle_at_80%_50%,rgba(184,85,46,0.18),transparent_45%)]" />
@@ -23,17 +26,21 @@ export default function FinalCTA() {
             a buscar seus primeiros clientes.
           </p>
 
-          <a
-            href={CHECKOUT_URL}
-            className="group mt-10 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-10 py-5 text-base font-bold text-[#0f1214] shadow-[0_0_45px_rgba(232,163,61,0.45)] transition-transform hover:scale-105"
-          >
-            QUERO COMEÇAR AGORA
-            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-          </a>
+          {unlocked && (
+            <>
+              <a
+                href={CHECKOUT_URL}
+                className="group mt-10 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-10 py-5 text-base font-bold text-[#0f1214] shadow-[0_0_45px_rgba(232,163,61,0.45)] transition-transform hover:scale-105"
+              >
+                QUERO COMEÇAR AGORA
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </a>
 
-          <p className="mt-5 text-xs text-muted">
-            Não é necessário conhecimento prévio em programação.
-          </p>
+              <p className="mt-5 text-xs text-muted">
+                Não é necessário conhecimento prévio em programação.
+              </p>
+            </>
+          )}
         </Reveal>
       </Container>
     </section>

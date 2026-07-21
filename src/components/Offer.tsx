@@ -2,7 +2,8 @@ import { CheckCircle2, ShieldCheck, Lock, Zap, Flame } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import Eyebrow from "./ui/Eyebrow";
-import { CHECKOUT_URL } from "../lib/config";
+import { CHECKOUT_URL, PRICE_ORIGINAL, PRICE_PROMO, PRICE_INSTALLMENTS } from "../lib/config";
+import { useWatchGate } from "../context/WatchGate";
 
 const INCLUDES = [
   "Curso completo",
@@ -15,6 +16,8 @@ const INCLUDES = [
 ];
 
 export default function Offer() {
+  const { unlocked } = useWatchGate();
+
   return (
     <section className="relative w-full py-24 sm:py-28">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_20%,rgba(232,163,61,0.12),transparent_50%)]" />
@@ -51,31 +54,42 @@ export default function Offer() {
               ))}
             </ul>
 
-            <div className="mt-10 flex flex-col items-center gap-1">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-violet/40 bg-violet/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-violet">
-                <Flame className="h-3.5 w-3.5" />
-                Vagas por tempo limitado
-              </span>
-            </div>
+            {unlocked && (
+              <>
+                <div className="mt-10 flex flex-col items-center gap-3">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-violet/40 bg-violet/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-violet">
+                    <Flame className="h-3.5 w-3.5" />
+                    Vagas por tempo limitado
+                  </span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-sm text-muted line-through">{PRICE_ORIGINAL}</span>
+                    <span className="font-display text-4xl font-bold text-paper sm:text-5xl">
+                      {PRICE_PROMO}
+                    </span>
+                    <span className="mt-1 text-sm text-muted">{PRICE_INSTALLMENTS}</span>
+                  </div>
+                </div>
 
-            <a
-              href={CHECKOUT_URL}
-              className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-base font-bold text-[#0f1214] shadow-[0_0_40px_rgba(232,163,61,0.45)] transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5"
-            >
-              QUERO ENTRAR PARA A ACADEMIA
-            </a>
+                <a
+                  href={CHECKOUT_URL}
+                  className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-base font-bold text-[#0f1214] shadow-[0_0_40px_rgba(232,163,61,0.45)] transition-transform hover:scale-[1.03] sm:w-auto sm:px-12 sm:py-5"
+                >
+                  QUERO ENTRAR PARA A ACADEMIA
+                </a>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted">
-              <span className="inline-flex items-center gap-1.5">
-                <Lock className="h-3.5 w-3.5" /> Compra segura
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Zap className="h-3.5 w-3.5" /> Acesso imediato
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <ShieldCheck className="h-3.5 w-3.5" /> Garantia conforme os termos da oferta
-              </span>
-            </div>
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted">
+                  <span className="inline-flex items-center gap-1.5">
+                    <Lock className="h-3.5 w-3.5" /> Compra segura
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Zap className="h-3.5 w-3.5" /> Acesso imediato
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <ShieldCheck className="h-3.5 w-3.5" /> Garantia conforme os termos da oferta
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         </Reveal>
       </Container>

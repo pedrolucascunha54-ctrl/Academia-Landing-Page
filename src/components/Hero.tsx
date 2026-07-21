@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2, PlayCircle } from "lucide-react";
 import Container from "./ui/Container";
 import Eyebrow from "./ui/Eyebrow";
 import { CHECKOUT_URL } from "../lib/config";
+import { useWatchGate } from "../context/WatchGate";
 
 const INDICATORS = [
   "Acesso imediato",
@@ -12,6 +13,8 @@ const INDICATORS = [
 ];
 
 export default function Hero() {
+  const { unlocked } = useWatchGate();
+
   return (
     <section id="inicio" className="relative w-full overflow-hidden pt-16 pb-20 sm:pt-20">
       {/* background glow */}
@@ -76,13 +79,15 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.36 }}
               className="mt-9 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start"
             >
-              <a
-                href={CHECKOUT_URL}
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-7 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"
-              >
-                QUERO APRENDER O MÉTODO
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              {unlocked && (
+                <a
+                  href={CHECKOUT_URL}
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-7 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"
+                >
+                  QUERO APRENDER O MÉTODO
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              )}
               <a
                 href="#vsl"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-4 text-sm font-bold text-paper backdrop-blur-sm transition-colors hover:bg-white/10 sm:text-base"

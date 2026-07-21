@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Sparkles } from "lucide-react";
 import { CHECKOUT_URL } from "../lib/config";
+import { useWatchGate } from "../context/WatchGate";
 
 const LINKS = [
   { label: "Início", href: "#inicio" },
@@ -15,6 +16,7 @@ const LINKS = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { unlocked } = useWatchGate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -53,14 +55,16 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden lg:block">
-          <a
-            href={CHECKOUT_URL}
-            className="rounded-full bg-gradient-to-r from-neon to-violet px-5 py-2.5 text-sm font-bold text-[#0f1214] shadow-[0_0_25px_rgba(232,163,61,0.35)] transition-transform hover:scale-105"
-          >
-            QUERO COMEÇAR
-          </a>
-        </div>
+        {unlocked && (
+          <div className="hidden lg:block">
+            <a
+              href={CHECKOUT_URL}
+              className="rounded-full bg-gradient-to-r from-neon to-violet px-5 py-2.5 text-sm font-bold text-[#0f1214] shadow-[0_0_25px_rgba(232,163,61,0.35)] transition-transform hover:scale-105"
+            >
+              QUERO COMEÇAR
+            </a>
+          </div>
+        )}
 
         <button
           onClick={() => setOpen((v) => !v)}
@@ -91,13 +95,15 @@ export default function Header() {
                   {link.label}
                 </a>
               ))}
-              <a
-                href={CHECKOUT_URL}
-                onClick={() => setOpen(false)}
-                className="mt-2 rounded-full bg-gradient-to-r from-neon to-violet px-5 py-3 text-center text-sm font-bold text-[#0f1214]"
-              >
-                QUERO COMEÇAR
-              </a>
+              {unlocked && (
+                <a
+                  href={CHECKOUT_URL}
+                  onClick={() => setOpen(false)}
+                  className="mt-2 rounded-full bg-gradient-to-r from-neon to-violet px-5 py-3 text-center text-sm font-bold text-[#0f1214]"
+                >
+                  QUERO COMEÇAR
+                </a>
+              )}
             </nav>
           </motion.div>
         )}

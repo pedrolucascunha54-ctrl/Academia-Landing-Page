@@ -1,6 +1,10 @@
 import { CHECKOUT_URL } from "../lib/config";
+import { useWatchGate } from "../context/WatchGate";
 
 export default function MobileStickyCTA() {
+  const { unlocked } = useWatchGate();
+  if (!unlocked) return null;
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-[#0f1214]/95 px-4 py-3 backdrop-blur-xl sm:hidden">
       <a
