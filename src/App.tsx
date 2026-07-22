@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollProgress from "./components/ScrollProgress";
 import TopBar from "./components/TopBar";
 import Header from "./components/Header";
@@ -27,6 +29,18 @@ import { WatchGateProvider, useWatchGate } from "./context/WatchGate";
 // scrolling past the video either.
 function GatedContent() {
   const { unlocked } = useWatchGate();
+
+  // Unlocking mounts a huge amount of new content below the VSL in one go
+  // (this whole subtree). That changes the page's total height right as the
+  // Support carousel's GSAP pin is being set up, which was leaving it
+  // measured against a stale layout and causing the mobile scroll jitter to
+  // come back. Refresh once this content has actually painted.
+  useEffect(() => {
+    if (!unlocked) return;
+    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => cancelAnimationFrame(id);
+  }, [unlocked]);
+
   if (!unlocked) return null;
 
   return (
