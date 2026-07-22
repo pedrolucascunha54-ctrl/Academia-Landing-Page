@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Play, Pause, ArrowRight } from "lucide-react";
+import { Play, Pause, ArrowRight, RotateCcw } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import Eyebrow from "./ui/Eyebrow";
@@ -34,6 +34,13 @@ export default function VSL() {
     if (!v) return;
     if (v.paused) v.play().catch(() => {});
     else v.pause();
+  }
+
+  function rewind() {
+    const v = videoRef.current;
+    if (!v) return;
+    // Only ever moves currentTime backward — can't be used to skip ahead.
+    v.currentTime = Math.max(0, v.currentTime - 10);
   }
 
   function cycleSpeed() {
@@ -108,6 +115,14 @@ export default function VSL() {
 
             {hasStarted && (
               <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={rewind}
+                  aria-label="Voltar 10 segundos"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-paper backdrop-blur-sm transition-colors hover:bg-black/70"
+                >
+                  <RotateCcw className="h-5 w-5" />
+                </button>
                 <button
                   type="button"
                   onClick={togglePlayback}
