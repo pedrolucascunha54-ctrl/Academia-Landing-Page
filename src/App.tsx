@@ -3,7 +3,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollProgress from "./components/ScrollProgress";
 import TopBar from "./components/TopBar";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
 import VSL from "./components/VSL";
 import AuthorityMarquee from "./components/AuthorityMarquee";
 import Tools from "./components/Tools";
@@ -72,7 +71,6 @@ function App() {
         <Header />
 
         <main>
-          <Hero />
           <VSL />
           <GatedContent />
         </main>
