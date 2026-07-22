@@ -5,12 +5,12 @@ import ScrollCarousel from "./ui/ScrollCarousel";
 import ImageCard from "./ui/ImageCard";
 
 const SUPPORT_IMAGES = [
-  { src: "/images/suporte-01.jpg", alt: "Aluno enviando comprovante da primeira venda no grupo" },
-  { src: "/images/suporte-02.jpg", alt: "Aluno recebendo suporte pessoal no grupo" },
-  { src: "/images/suporte-03.jpg", alt: "Aluno agradecendo pelo método e apoio recebido" },
-  { src: "/images/suporte-04.jpg", alt: "Aluno fechando negócio de R$2.000 com um site" },
-  { src: "/images/suporte-05.jpg", alt: "Aluno entregando sua primeira landing page com ajuda do grupo" },
-  { src: "/images/suporte-06.jpg", alt: "Aluno impressionado com o resultado do primeiro site" },
+  { src: "/images/suporte-01.jpg", alt: "Aluno agradecendo após fechar uma venda e receber o pagamento" },
+  { src: "/images/suporte-02.jpg", alt: "Mentoria tirando dúvida de aluno sobre como abordar clientes" },
+  { src: "/images/suporte-03.jpg", alt: "Mentoria ajudando aluno com follow-up de prospecção" },
+  { src: "/images/suporte-04.jpg", alt: "Aluno fechando venda de site por R$1.000" },
+  { src: "/images/suporte-05.jpg", alt: "Aluno entregando sua primeira landing page" },
+  { src: "/images/suporte-06.jpg", alt: "Alunos impressionados com a qualidade do primeiro site entregue" },
 ];
 
 export default function Support() {

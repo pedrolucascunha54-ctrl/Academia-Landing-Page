@@ -63,10 +63,10 @@ export default function ScrollCarousel<T>({
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={index}
-            initial={{ x: direction >= 0 ? 90 : -90, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: direction >= 0 ? -90 : 90, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ x: direction >= 0 ? 90 : -90, opacity: 0, scale: 0.85 }}
+            animate={{ x: 0, opacity: 1, scale: 1 }}
+            exit={{ x: direction >= 0 ? -90 : 90, opacity: 0, scale: 0.85 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             {renderItem(current)}
           </motion.div>
