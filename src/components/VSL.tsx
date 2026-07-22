@@ -59,13 +59,9 @@ export default function VSL() {
   }
 
   return (
-    // The VSL is now the entry point of the site (Hero was removed) — on
-    // mobile it fills the entire first screen the visitor sees, edge to
-    // edge, full height. From sm up there's room to spare, so it reverts
-    // to a normal contained section with the heading above the video.
-    <section id="vsl" className="relative min-h-[100svh] w-full sm:min-h-0 sm:py-20 sm:py-24">
-      <Container className="relative h-full">
-        <Reveal className="mx-auto hidden max-w-2xl text-center sm:block">
+    <section id="vsl" className="relative w-full py-20 sm:py-24">
+      <Container>
+        <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow>Assista antes de continuar</Eyebrow>
           <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-paper sm:text-4xl">
             De pedreiro a criador de sites com IA
@@ -76,10 +72,11 @@ export default function VSL() {
           </p>
         </Reveal>
 
-        {/* No seek bar on purpose — the buy button only unlocks once the
-            video is actually watched through. */}
-        <div className="absolute inset-0 sm:relative sm:inset-auto sm:mx-auto sm:mt-12 sm:max-w-2xl">
-          <div className="glow-border relative h-full w-full overflow-hidden bg-black sm:glass sm:aspect-video sm:rounded-3xl">
+        {/* Full-bleed on mobile so the video fills the screen edge-to-edge,
+            contained card from sm up. No seek bar on purpose — the buy button
+            only unlocks once the video is actually watched through. */}
+        <Reveal delay={0.1} className="-mx-5 mt-12 sm:mx-auto sm:max-w-2xl">
+          <div className="glass glow-border relative aspect-video overflow-hidden bg-black sm:rounded-3xl">
             <video
               ref={videoRef}
               src="/videos/vsl.mp4"
@@ -117,7 +114,7 @@ export default function VSL() {
             )}
 
             {hasStarted && (
-              <div className="absolute bottom-6 left-4 flex items-center gap-2 sm:bottom-4">
+              <div className="absolute bottom-4 left-4 flex items-center gap-2">
                 <button
                   type="button"
                   onClick={rewind}
@@ -148,23 +145,11 @@ export default function VSL() {
                 </button>
               </div>
             )}
-
-            {unlocked && (
-              <Reveal className="absolute inset-x-0 bottom-24 flex justify-center sm:hidden">
-                <a
-                  href={CHECKOUT_URL}
-                  className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-6 py-3.5 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105"
-                >
-                  QUERO COMEÇAR AGORA
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </Reveal>
-            )}
           </div>
-        </div>
+        </Reveal>
 
         {unlocked && (
-          <Reveal delay={0.1} className="mt-8 hidden justify-center sm:flex">
+          <Reveal delay={0.1} className="mt-8 flex justify-center">
             <a
               href={CHECKOUT_URL}
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"

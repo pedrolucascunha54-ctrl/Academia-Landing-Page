@@ -34,7 +34,7 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
-        <a href="#vsl" className="flex items-center gap-2.5 shrink-0">
+        <a href="#inicio" className="flex items-center gap-2.5 shrink-0">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-neon to-violet shadow-[0_0_20px_rgba(232,163,61,0.45)]">
             <Sparkles className="h-5 w-5 text-[#0f1214]" strokeWidth={2.5} />
           </span>
