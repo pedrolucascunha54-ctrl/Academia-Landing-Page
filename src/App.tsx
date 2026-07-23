@@ -19,7 +19,6 @@ import Offer from "./components/Offer";
 import FAQ from "./components/FAQ";
 import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
-import WhatsAppButton from "./components/WhatsAppButton";
 import MobileStickyCTA from "./components/MobileStickyCTA";
 import { WatchGateProvider, useWatchGate } from "./context/WatchGate";
 
@@ -77,7 +76,6 @@ function App() {
           <GatedContent />
         </main>
 
-        <WhatsAppButton />
         <MobileStickyCTA />
       </div>
     </WatchGateProvider>
