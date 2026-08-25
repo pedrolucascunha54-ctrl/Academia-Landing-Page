@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { Play, Pause, ArrowRight, RotateCcw } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Play, Pause, ArrowRight, RotateCcw, AlertTriangle } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import Eyebrow from "./ui/Eyebrow";
@@ -10,6 +10,10 @@ const UNLOCK_AT_SECONDS = 5 * 60;
 // Playback speeds the viewer can cycle through — capped at 1.35x so the
 // video can't be sped through faster than that.
 const SPEEDS = [1, 1.15, 1.25, 1.35];
+// How long the video may sit buffering before we stop pretending it's fine and
+// give the visitor a way out. The whole page below the VSL is gated on this
+// video, so a stall that nobody escapes from is a dead end, not a paywall.
+const STALL_ESCAPE_MS = 20000;
 
 export default function VSL() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -18,14 +22,40 @@ export default function VSL() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const [speedIndex, setSpeedIndex] = useState(0);
+  const [hasFailed, setHasFailed] = useState(false);
+  const [showEscape, setShowEscape] = useState(false);
   const { unlocked, unlock } = useWatchGate();
+
+  // A stall that never resolves would leave the visitor staring at a spinner
+  // with nothing below it, since GatedContent renders null until unlock.
+  useEffect(() => {
+    if (!isBuffering || showEscape) return;
+    const id = setTimeout(() => setShowEscape(true), STALL_ESCAPE_MS);
+    return () => clearTimeout(id);
+  }, [isBuffering, showEscape]);
 
   function handlePlay() {
     setHasStarted(true);
     setIsBuffering(true);
+    setHasFailed(false);
     videoRef.current?.play().catch((err) => {
+      // Some in-app browsers (Instagram's especially) reject play() outright.
       setIsBuffering(false);
+      setHasFailed(true);
       console.error("VSL play failed:", err);
+    });
+  }
+
+  function retry() {
+    setHasFailed(false);
+    setShowEscape(false);
+    const v = videoRef.current;
+    if (!v) return;
+    v.load();
+    setIsBuffering(true);
+    v.play().catch(() => {
+      setIsBuffering(false);
+      setHasFailed(true);
     });
   }
 
@@ -90,7 +120,11 @@ export default function VSL() {
               onPause={() => setIsPlaying(false)}
               onPlaying={() => setIsBuffering(false)}
               onWaiting={() => setIsBuffering(true)}
-              onError={(e) => console.error("VSL video error:", e.currentTarget.error)}
+              onError={(e) => {
+                setIsBuffering(false);
+                setHasFailed(true);
+                console.error("VSL video error:", e.currentTarget.error);
+              }}
               className="h-full w-full object-cover"
             />
 
@@ -107,9 +141,40 @@ export default function VSL() {
               </button>
             )}
 
-            {isBuffering && (
+            {isBuffering && !hasFailed && (
               <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                 <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-neon" />
+              </div>
+            )}
+
+            {/* O vídeo não carregou. Sem isto o visitante fica preso: a página
+                inteira abaixo da VSL só existe depois do unlock. */}
+            {hasFailed && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0f1214]/95 px-6 text-center">
+                <AlertTriangle className="h-9 w-9 text-neon" />
+                <p className="max-w-sm text-sm leading-relaxed text-paper sm:text-base">
+                  O vídeo não carregou no seu aparelho. Isso costuma acontecer no navegador
+                  de dentro do Instagram.
+                </p>
+                <div className="flex flex-col items-center gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={retry}
+                    className="rounded-full border border-white/25 px-6 py-3 text-sm font-bold text-paper transition-colors hover:bg-white/10"
+                  >
+                    Tentar de novo
+                  </button>
+                  <button
+                    type="button"
+                    onClick={unlock}
+                    className="rounded-full bg-gradient-to-r from-neon to-violet px-6 py-3 text-sm font-bold text-[#0f1214]"
+                  >
+                    Continuar sem o vídeo
+                  </button>
+                </div>
+                <p className="text-xs text-muted">
+                  Dica: abrir no Chrome ou Safari costuma resolver.
+                </p>
               </div>
             )}
 
@@ -147,6 +212,23 @@ export default function VSL() {
             )}
           </div>
         </Reveal>
+
+        {/* Travou carregando, mas sem erro: conexão lenta. Mesmo problema de
+            beco sem saída, então oferece a mesma escapatória. */}
+        {showEscape && !hasFailed && !unlocked && (
+          <div className="mx-auto mt-6 max-w-md rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-center">
+            <p className="text-sm leading-relaxed text-muted">
+              Está demorando para carregar? Sua conexão pode estar lenta.
+            </p>
+            <button
+              type="button"
+              onClick={unlock}
+              className="mt-3 text-sm font-bold text-neon underline underline-offset-4"
+            >
+              Continuar sem esperar o vídeo
+            </button>
+          </div>
+        )}
 
         {unlocked && (
           <Reveal delay={0.1} className="mt-8 flex justify-center">
