@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Sparkles } from "lucide-react";
 import { CHECKOUT_URL } from "../lib/config";
 import { useWatchGate } from "../context/WatchGate";
+import OfferBar from "./OfferBar";
 
 const LINKS = [
   { label: "Início", href: "#inicio" },
@@ -72,6 +73,8 @@ export default function Header() {
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
+
+      <OfferBar />
 
       <AnimatePresence>
         {open && (

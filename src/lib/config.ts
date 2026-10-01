@@ -4,6 +4,6 @@ export const CHECKOUT_URL = "https://pay.cakto.com.br/g9i7njn_977018";
 
 export const INSTAGRAM_URL = "https://www.instagram.com/jovem_visiionarioo/";
 
-export const PRICE_ORIGINAL = "R$ 497,00";
-export const PRICE_PROMO = "R$ 197,00";
-export const PRICE_INSTALLMENTS = "12x de R$ 20,23";
+export const PRICE_ORIGINAL = "R$ 297,00";
+export const PRICE_PROMO = "R$ 147,00";
+export const PRICE_INSTALLMENTS = "12x de R$ 17,11";
