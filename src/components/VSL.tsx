@@ -7,6 +7,32 @@ import { useWatchGate } from "../context/WatchGate";
 import { CHECKOUT_URL } from "../lib/config";
 
 const UNLOCK_AT_SECONDS = 5 * 60;
+// Where the visitor stopped, so leaving the site doesn't send them back to 0:00.
+const POSITION_KEY = "vsl-position";
+const SAVE_EVERY_SECONDS = 3;
+
+function readSavedPosition() {
+  try {
+    const n = Number(localStorage.getItem(POSITION_KEY));
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function savePosition(seconds: number) {
+  try {
+    localStorage.setItem(POSITION_KEY, String(Math.floor(seconds)));
+  } catch {
+    // Storage unavailable (private mode / in-app browser): resume just won't work.
+  }
+}
+
+function formatTime(seconds: number) {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
 // Playback speeds the viewer can cycle through — capped at 1.35x so the
 // video can't be sped through faster than that.
 const SPEEDS = [1, 1.15, 1.25, 1.35];
@@ -24,6 +50,8 @@ export default function VSL() {
   const [speedIndex, setSpeedIndex] = useState(0);
   const [hasFailed, setHasFailed] = useState(false);
   const [showEscape, setShowEscape] = useState(false);
+  const [resumeAt] = useState(readSavedPosition);
+  const lastSavedRef = useRef(resumeAt);
   const { unlocked, unlock } = useWatchGate();
 
   // A stall that never resolves would leave the visitor staring at a spinner
@@ -38,7 +66,12 @@ export default function VSL() {
     setHasStarted(true);
     setIsBuffering(true);
     setHasFailed(false);
-    videoRef.current?.play().catch((err) => {
+    const v = videoRef.current;
+    if (v && resumeAt > 0 && v.currentTime < 1) {
+      if (v.readyState >= 1) v.currentTime = resumeAt;
+      else v.addEventListener("loadedmetadata", () => (v.currentTime = resumeAt), { once: true });
+    }
+    v?.play().catch((err) => {
       // Some in-app browsers (Instagram's especially) reject play() outright.
       setIsBuffering(false);
       setHasFailed(true);
@@ -81,7 +114,12 @@ export default function VSL() {
 
   function handleTimeUpdate() {
     const v = videoRef.current;
-    if (!v || unlockedRef.current) return;
+    if (!v) return;
+    if (Math.abs(v.currentTime - lastSavedRef.current) >= SAVE_EVERY_SECONDS) {
+      lastSavedRef.current = v.currentTime;
+      savePosition(v.currentTime);
+    }
+    if (unlockedRef.current) return;
     if (v.currentTime >= UNLOCK_AT_SECONDS) {
       unlockedRef.current = true;
       unlock();
@@ -117,7 +155,11 @@ export default function VSL() {
               preload="metadata"
               onTimeUpdate={handleTimeUpdate}
               onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
+              onPause={(e) => {
+                setIsPlaying(false);
+                savePosition(e.currentTarget.currentTime);
+              }}
+              onEnded={() => savePosition(0)}
               onPlaying={() => setIsBuffering(false)}
               onWaiting={() => setIsBuffering(true)}
               onError={(e) => {
@@ -138,6 +180,11 @@ export default function VSL() {
                 <span className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-neon to-violet shadow-[0_0_40px_rgba(232,163,61,0.5)]">
                   <Play className="h-9 w-9 translate-x-0.5 text-[#0f1214]" fill="currentColor" />
                 </span>
+                {resumeAt > 0 && (
+                  <span className="absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/60 px-4 py-2 text-xs font-semibold text-paper backdrop-blur-sm sm:text-sm">
+                    Continuar de onde parou ({formatTime(resumeAt)})
+                  </span>
+                )}
               </button>
             )}
 
