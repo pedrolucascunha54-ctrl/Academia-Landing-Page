@@ -1,17 +1,33 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { CHECKOUT_URL } from "../lib/config";
 import { useWatchGate } from "../context/WatchGate";
 
 const LINKS = [
-  { label: "Início", href: "#inicio" },
-  { label: "Método", href: "#vsl" },
   { label: "Conteúdo", href: "#conteudo" },
-  { label: "Prospecção", href: "#prospeccao" },
-  { label: "Resultados", href: "#resultados" },
+  { label: "Scripts", href: "#scripts" },
+  { label: "Suporte", href: "#suporte" },
+  { label: "Investimento", href: "#investimento" },
   { label: "Dúvidas", href: "#duvidas" },
 ];
+
+export function Logo({ tone = "light" }: { tone?: "light" | "dark" }) {
+  const text = tone === "dark" ? "text-paper" : "text-ink";
+  return (
+    <span className="flex items-center gap-2.5">
+      <span
+        aria-hidden="true"
+        className="flex h-8 w-8 items-center justify-center rounded-md bg-amber font-display text-lg font-extrabold leading-none text-ink"
+      >
+        A
+      </span>
+      <span className={`font-display text-[15px] font-bold uppercase leading-none tracking-wide sm:text-base ${text}`}>
+        Academia <span className="text-amber-deep">Landing Page</span>
+      </span>
+    </span>
+  );
+}
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -27,52 +43,51 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "border-b border-white/10 bg-[#0f1214]/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+      className={`sticky top-0 z-50 w-full transition-[background-color,border-color] duration-300 ${
+        scrolled || open
+          ? "border-b border-line bg-canvas/90 backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
-        <a href="#inicio" className="flex items-center gap-2.5 shrink-0">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-neon to-violet shadow-[0_0_20px_rgba(232,163,61,0.45)]">
-            <Sparkles className="h-5 w-5 text-[#0f1214]" strokeWidth={2.5} />
-          </span>
-          <span className="font-display text-[15px] sm:text-base font-bold tracking-tight text-paper">
-            Academia Sites <span className="text-gradient">com IA</span>
-          </span>
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 sm:px-8 lg:px-10">
+        <a href="#inicio" aria-label="Academia Landing Page — início">
+          <Logo />
         </a>
 
-        <nav className="hidden items-center gap-8 lg:flex">
-          {LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted transition-colors hover:text-paper"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
         {unlocked && (
-          <div className="hidden lg:block">
-            <a
-              href={CHECKOUT_URL}
-              className="rounded-full bg-gradient-to-r from-neon to-violet px-5 py-2.5 text-sm font-bold text-[#0f1214] shadow-[0_0_25px_rgba(232,163,61,0.35)] transition-transform hover:scale-105"
-            >
-              QUERO COMEÇAR
-            </a>
-          </div>
+          <nav aria-label="Seções" className="hidden items-center gap-7 lg:flex">
+            {LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-stone transition-colors hover:text-ink"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
         )}
 
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-paper lg:hidden"
-          aria-label="Abrir menu"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {unlocked && (
+          <a
+            href={CHECKOUT_URL}
+            className="hidden rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-canvas transition-colors hover:bg-ink-soft lg:inline-flex"
+          >
+            Quero começar
+          </a>
+        )}
+
+        {unlocked && (
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink lg:hidden"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        )}
       </div>
 
       <AnimatePresence>
@@ -82,28 +97,26 @@ export default function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden border-t border-white/10 bg-[#0f1214]/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-line bg-canvas lg:hidden"
           >
-            <nav className="flex flex-col gap-1 px-5 py-4">
+            <nav aria-label="Seções" className="flex flex-col px-5 py-3">
               {LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-lg px-3 py-3 text-sm font-medium text-muted hover:bg-white/5 hover:text-paper"
+                  className="border-b border-line/70 py-3.5 text-base font-medium text-ink last:border-0"
                 >
                   {link.label}
                 </a>
               ))}
-              {unlocked && (
-                <a
-                  href={CHECKOUT_URL}
-                  onClick={() => setOpen(false)}
-                  className="mt-2 rounded-full bg-gradient-to-r from-neon to-violet px-5 py-3 text-center text-sm font-bold text-[#0f1214]"
-                >
-                  QUERO COMEÇAR
-                </a>
-              )}
+              <a
+                href={CHECKOUT_URL}
+                onClick={() => setOpen(false)}
+                className="mb-2 mt-3 rounded-full bg-amber px-5 py-3.5 text-center text-sm font-semibold uppercase tracking-wide text-ink"
+              >
+                Quero entrar para o treinamento
+              </a>
             </nav>
           </motion.div>
         )}

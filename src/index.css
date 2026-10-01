@@ -24,6 +24,18 @@
   --color-paper: #ece8de;
   --color-muted: #948d7f;
 
+  /* Light base. Dark (bg/paper/muted above) is kept only for contrast zones. */
+  --color-canvas: #f6f3ed;
+  --color-sand: #ebe5d9;
+  --color-ink: #16181b;
+  --color-ink-soft: #3a3d42;
+  --color-stone: #5f5a51;
+  --color-line: #d8d0c1;
+  --color-amber: #e8a33d;
+  --color-amber-deep: #8f540c;
+  --color-rust: #b8552e;
+  --color-steel: #2f6496;
+
   --animate-marquee: marquee 28s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-float-slow: float 9s ease-in-out infinite;
@@ -65,45 +77,62 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-paper);
+  background: var(--color-canvas);
+  color: var(--color-ink);
   font-family: var(--font-inter);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-sora);
-  letter-spacing: -0.01em;
-}
-
-/* Headline face (Big Shoulders) is a condensed display cut — needs tighter
-   leading to read as intentional, not squished. No forced uppercase: some
-   headlines are full conversational sentences (the Hero), and all-caps on
-   those reads as shouting rather than confident. */
-.font-display {
-  line-height: 1.02;
+/* In the base layer so utilities like .font-display can override it. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-sora);
+    letter-spacing: -0.01em;
+  }
+  .font-display {
+    line-height: 1.02;
+  }
 }
 
 ::selection {
-  background: var(--color-neon);
-  color: var(--color-bg);
+  background: var(--color-amber);
+  color: var(--color-ink);
 }
 
-/* thin premium scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
+:focus-visible {
+  outline: 2px solid var(--color-steel);
+  outline-offset: 3px;
 }
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
+
+/* Technical-drawing paper: the "prancheta" identity, on a light base. */
+.blueprint {
+  background-image:
+    linear-gradient(rgba(47, 100, 150, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 100, 150, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
-::-webkit-scrollbar-thumb {
-  background: var(--color-neon);
-  border-radius: 999px;
+
+/* Hazard-tape rule — a nod to the obra origin, used sparingly as a divider. */
+.tape {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--color-amber) 0 12px,
+    var(--color-ink) 12px 24px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none;
+  }
 }
 
 /* Solid accent instead of a rainbow gradient — the cyan-to-violet text

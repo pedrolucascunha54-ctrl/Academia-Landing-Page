@@ -6,6 +6,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Mobile browsers show/hide the address bar while scrolling, which changes
+// innerHeight mid-scroll and made pinned sections re-measure and jitter.
+// (normalizeScroll(true) also fixed it but made touch scrolling feel heavy.)
+ScrollTrigger.config({ ignoreMobileResize: true });
+
+// The display font's metrics differ a lot from the fallback, so pin positions
+// measured before it loads are stale.
+document.fonts.ready.then(() => ScrollTrigger.refresh());
+
 /**
  * Pins the section while the viewer scrolls through each item in turn — one
  * scroll step advances to the next item. After the last one, the pin
@@ -123,15 +132,15 @@ export default function ScrollCarousel<T>({
             <span
               key={i}
               className={`h-1.5 rounded-full transition-all ${
-                i === index ? "w-6 bg-cyan" : "w-1.5 bg-white/20"
+                i === index ? "w-6 bg-amber" : "w-1.5 bg-white/20"
               }`}
             />
           ))}
         </div>
       )}
 
-      <p className="mt-4 text-xs text-muted">
-        {index < items.length - 1 ? "Continue rolando para ver o próximo" : "Continue rolando"}
+      <p className="mt-4 text-xs text-muted" aria-live="polite">
+        {index < items.length - 1 ? "Role a página ou toque nas setas" : "Continue rolando"}
       </p>
     </div>
   );

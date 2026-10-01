@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
-import Eyebrow from "./ui/Eyebrow";
+import SectionHeading from "./ui/SectionHeading";
 
 const PROJECTS = [
   {
@@ -56,17 +56,15 @@ const PROJECTS = [
 
 export default function Portfolio() {
   return (
-    <section className="relative w-full py-24 sm:py-28">
+    <section id="portfolio" className="relative w-full py-24 sm:py-32">
       <Container>
-        <Reveal className="mx-auto mb-14 max-w-2xl text-center">
-          <Eyebrow>Portfólio</Eyebrow>
-          <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-paper sm:text-4xl">
-            Alguns sites que eu já construí
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">
-            Projetos reais, no ar, de clientes reais — não são templates de demonstração.
-          </p>
-        </Reveal>
+        <SectionHeading
+          index="08"
+          eyebrow="Portfólio"
+          title="Alguns projetos que eu já construí."
+          intro="Sites e lojas reais, no ar, de clientes reais — não são templates de demonstração."
+          className="mb-14"
+        />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {PROJECTS.map(({ src, alt, title, category, text, url }, i) => (
@@ -75,27 +73,31 @@ export default function Portfolio() {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass glow-border group block h-full overflow-hidden rounded-2xl transition-transform hover:-translate-y-1.5"
+                className="group block h-full overflow-hidden rounded-2xl border border-line bg-white transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgba(22,24,27,0.45)]"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-[#0a0c0d]">
+                <div className="aspect-[16/10] overflow-hidden border-b border-line bg-sand">
                   <img
                     src={src}
                     alt={alt}
+                    width={1200}
+                    height={750}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    decoding="async"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                 </div>
                 <div className="p-5">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-display text-lg font-bold text-paper">{title}</h3>
-                    <span className="shrink-0 rounded-full border border-cyan/30 bg-cyan/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-cyan">
+                    <h3 className="font-display text-xl font-bold uppercase text-ink">{title}</h3>
+                    <span className="shrink-0 font-mono-tech text-[10px] uppercase tracking-[0.16em] text-stone">
                       {category}
                     </span>
                   </div>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{text}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-cyan">
-                    Ver site funcionando
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{text}</p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-amber-deep">
+                    Ver projeto no ar
+                    <span className="sr-only">(abre em nova aba)</span>
+                    <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </div>
               </a>

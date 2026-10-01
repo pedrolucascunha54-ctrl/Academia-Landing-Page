@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Play, Pause, ArrowRight, RotateCcw, AlertTriangle } from "lucide-react";
+import { Play, Pause, RotateCcw, AlertTriangle } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
-import Eyebrow from "./ui/Eyebrow";
+import SectionHeading from "./ui/SectionHeading";
+import CTAButton from "./ui/CTAButton";
 import { useWatchGate } from "../context/WatchGate";
-import { CHECKOUT_URL } from "../lib/config";
 
 const UNLOCK_AT_SECONDS = 5 * 60;
 // Playback speeds the viewer can cycle through — capped at 1.35x so the
@@ -89,24 +89,21 @@ export default function VSL() {
   }
 
   return (
-    <section id="vsl" className="relative w-full py-20 sm:py-24">
+    <section id="vsl" className="relative w-full bg-ink py-20 sm:py-28">
       <Container>
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <Eyebrow>Assista antes de continuar</Eyebrow>
-          <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-paper sm:text-4xl">
-            De pedreiro a criador de sites com IA
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">
-            Em poucos minutos eu conto minha história e como você pode fazer o mesmo, sem
-            precisar gastar um real com anúncio.
-          </p>
-        </Reveal>
+        <SectionHeading
+          tone="dark"
+          align="center"
+          eyebrow="Assista antes de continuar"
+          title="De pedreiro a criador de soluções digitais"
+          intro="Em poucos minutos eu conto minha história e mostro o caminho que você vai seguir no treinamento — sem precisar gastar com anúncio para começar."
+        />
 
         {/* Full-bleed on mobile so the video fills the screen edge-to-edge,
             contained card from sm up. No seek bar on purpose — the buy button
             only unlocks once the video is actually watched through. */}
-        <Reveal delay={0.1} className="-mx-5 mt-12 sm:mx-auto sm:max-w-2xl">
-          <div className="glass glow-border relative aspect-video overflow-hidden bg-black sm:rounded-3xl">
+        <Reveal delay={0.1} className="-mx-5 mt-12 sm:mx-auto sm:max-w-3xl">
+          <div className="relative aspect-video overflow-hidden bg-black ring-1 ring-white/10 sm:rounded-3xl">
             <video
               ref={videoRef}
               src="/videos/vsl.mp4"
@@ -133,10 +130,10 @@ export default function VSL() {
                 type="button"
                 onClick={handlePlay}
                 aria-label="Reproduzir vídeo"
-                className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
+                className="group absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
               >
-                <span className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-neon to-violet shadow-[0_0_40px_rgba(232,163,61,0.5)]">
-                  <Play className="h-9 w-9 translate-x-0.5 text-[#0f1214]" fill="currentColor" />
+                <span className="flex h-20 w-20 items-center justify-center rounded-full bg-amber transition-transform duration-300 group-hover:scale-105">
+                  <Play className="h-9 w-9 translate-x-0.5 text-ink" fill="currentColor" />
                 </span>
               </button>
             )}
@@ -167,7 +164,7 @@ export default function VSL() {
                   <button
                     type="button"
                     onClick={unlock}
-                    className="rounded-full bg-gradient-to-r from-neon to-violet px-6 py-3 text-sm font-bold text-[#0f1214]"
+                    className="rounded-full bg-amber px-6 py-3 text-sm font-bold text-ink"
                   >
                     Continuar sem o vídeo
                   </button>
@@ -231,14 +228,8 @@ export default function VSL() {
         )}
 
         {unlocked && (
-          <Reveal delay={0.1} className="mt-8 flex justify-center">
-            <a
-              href={CHECKOUT_URL}
-              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"
-            >
-              QUERO COMEÇAR AGORA
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
+          <Reveal delay={0.1} className="mt-10 flex justify-center">
+            <CTAButton>Quero começar</CTAButton>
           </Reveal>
         )}
       </Container>
