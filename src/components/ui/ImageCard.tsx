@@ -13,7 +13,7 @@ export default function ImageCard({
     // pinned section's viewport.
     <div className="glass glow-border relative mx-auto aspect-[369/800] h-[65vh] max-h-[640px] w-auto overflow-hidden rounded-[2rem] p-2">
       <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] bg-[#0a0c0d]">
-        <img src={src} alt={alt} className="h-full w-full object-contain" loading="lazy" />
+        <img src={src} alt={alt} className="h-full w-full object-contain" loading="lazy" draggable={false} />
       </div>
     </div>
   );

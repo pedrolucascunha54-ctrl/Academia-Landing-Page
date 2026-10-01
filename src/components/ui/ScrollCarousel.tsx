@@ -1,25 +1,13 @@
-import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Mobile browsers show/hide the address bar while scrolling, which changes
-// innerHeight mid-scroll and made pinned sections re-measure and jitter.
-// (normalizeScroll(true) also fixed it but made touch scrolling feel heavy.)
-ScrollTrigger.config({ ignoreMobileResize: true });
-
-// The display font's metrics differ a lot from the fallback, so pin positions
-// measured before it loads are stale.
-document.fonts.ready.then(() => ScrollTrigger.refresh());
+const SWIPE_THRESHOLD = 60;
 
 /**
- * Pins the section while the viewer scrolls through each item in turn — one
- * scroll step advances to the next item. After the last one, the pin
- * releases and the page continues scrolling normally. Works with any
- * content (video cards, image cards, ...) via `renderItem`.
+ * Item-by-item carousel changed only by the arrows (or a horizontal swipe on
+ * touch). Page scroll is never captured: drag is locked to the x axis, so
+ * vertical wheel/trackpad/touch scrolling always moves the page.
  */
 export default function ScrollCarousel<T>({
   items,
@@ -30,59 +18,21 @@ export default function ScrollCarousel<T>({
   renderItem: (item: T) => ReactNode;
   label?: string;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const indexRef = useRef(0);
-  const stRef = useRef<ScrollTrigger | null>(null);
   const [[index, direction], setIndex] = useState<[number, number]>([0, 0]);
 
-  useLayoutEffect(() => {
-    const el = containerRef.current;
-    if (!el || items.length <= 1) return;
-
-    const steps = items.length - 1;
-    const st = ScrollTrigger.create({
-      trigger: el,
-      start: "top top",
-      end: () => `+=${window.innerHeight * steps}`,
-      pin: true,
-      pinSpacing: true,
-      anticipatePin: 1,
-      onUpdate: (self) => {
-        const next = Math.min(items.length - 1, Math.floor(self.progress * items.length));
-        if (next !== indexRef.current) {
-          setIndex([next, next > indexRef.current ? 1 : -1]);
-          indexRef.current = next;
-        }
-      },
-    });
-    stRef.current = st;
-
-    return () => {
-      stRef.current = null;
-      st.kill();
-    };
-  }, [items.length]);
-
-  // Lets a tap on the arrows jump straight to the target scroll position
-  // (rather than just swapping the rendered item) so the pinned section's
-  // scroll progress stays in sync — scrolling afterwards continues from
-  // wherever the tap landed instead of fighting the next onUpdate tick.
   function goTo(target: number) {
-    if (target < 0 || target >= items.length) return;
-    const st = stRef.current;
-    if (!st) return;
-    const progress = (target + 0.5) / items.length;
-    window.scrollTo({ top: st.start + progress * (st.end - st.start), behavior: "smooth" });
+    if (target < 0 || target >= items.length || target === index) return;
+    setIndex([target, target > index ? 1 : -1]);
   }
 
   const current = items[index];
   if (!current) return null;
 
+  const arrow =
+    "glass glow-border flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-paper transition-opacity disabled:pointer-events-none disabled:opacity-30 hover:bg-white/[0.07]";
+
   return (
-    <div
-      ref={containerRef}
-      className="relative flex min-h-screen w-full flex-col items-center justify-center py-16"
-    >
+    <div className="relative flex w-full flex-col items-center py-16" role="region" aria-roledescription="carrossel" aria-label={label ?? "Prints do grupo de suporte"}>
       {label && (
         <p className="mb-6 text-xs font-semibold uppercase tracking-wider text-cyan">{label}</p>
       )}
@@ -93,7 +43,7 @@ export default function ScrollCarousel<T>({
             onClick={() => goTo(index - 1)}
             disabled={index === 0}
             aria-label="Imagem anterior"
-            className="glass glow-border flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-paper transition-opacity disabled:opacity-30 disabled:pointer-events-none hover:bg-white/[0.07]"
+            className={arrow}
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={2} />
           </button>
@@ -103,6 +53,13 @@ export default function ScrollCarousel<T>({
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={index}
+              drag={items.length > 1 ? "x" : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.25}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -SWIPE_THRESHOLD) goTo(index + 1);
+                else if (info.offset.x > SWIPE_THRESHOLD) goTo(index - 1);
+              }}
               initial={{ x: direction >= 0 ? 90 : -90, opacity: 0, scale: 0.85 }}
               animate={{ x: 0, opacity: 1, scale: 1 }}
               exit={{ x: direction >= 0 ? -90 : 90, opacity: 0, scale: 0.85 }}
@@ -119,7 +76,7 @@ export default function ScrollCarousel<T>({
             onClick={() => goTo(index + 1)}
             disabled={index === items.length - 1}
             aria-label="Próxima imagem"
-            className="glass glow-border flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-paper transition-opacity disabled:opacity-30 disabled:pointer-events-none hover:bg-white/[0.07]"
+            className={arrow}
           >
             <ChevronRight className="h-5 w-5" strokeWidth={2} />
           </button>
@@ -132,7 +89,7 @@ export default function ScrollCarousel<T>({
             <span
               key={i}
               className={`h-1.5 rounded-full transition-all ${
-                i === index ? "w-6 bg-amber" : "w-1.5 bg-white/20"
+                i === index ? "w-6 bg-cyan" : "w-1.5 bg-white/20"
               }`}
             />
           ))}
@@ -140,7 +97,7 @@ export default function ScrollCarousel<T>({
       )}
 
       <p className="mt-4 text-xs text-muted" aria-live="polite">
-        {index < items.length - 1 ? "Role a página ou toque nas setas" : "Continue rolando"}
+        Print {index + 1} de {items.length} · use as setas para ver os outros
       </p>
     </div>
   );

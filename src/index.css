@@ -24,19 +24,7 @@
   --color-paper: #ece8de;
   --color-muted: #948d7f;
 
-  /* Light base. Dark (bg/paper/muted above) is kept only for contrast zones. */
-  --color-canvas: #f6f3ed;
-  --color-sand: #ebe5d9;
-  --color-ink: #16181b;
-  --color-ink-soft: #3a3d42;
-  --color-stone: #5f5a51;
-  --color-line: #d8d0c1;
-  --color-amber: #e8a33d;
-  --color-amber-deep: #8f540c;
-  --color-rust: #b8552e;
-  --color-steel: #2f6496;
-
-  --animate-marquee: marquee 28s linear infinite;
+  --animate-marquee: marquee 84s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-float-slow: float 9s ease-in-out infinite;
   --animate-pulse-glow: pulse-glow 3.5s ease-in-out infinite;
@@ -77,62 +65,45 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-canvas);
-  color: var(--color-ink);
+  background: var(--color-bg);
+  color: var(--color-paper);
   font-family: var(--font-inter);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* In the base layer so utilities like .font-display can override it. */
-@layer base {
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--font-sora);
-    letter-spacing: -0.01em;
-  }
-  .font-display {
-    line-height: 1.02;
-  }
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-sora);
+  letter-spacing: -0.01em;
+}
+
+/* Headline face (Big Shoulders) is a condensed display cut — needs tighter
+   leading to read as intentional, not squished. No forced uppercase: some
+   headlines are full conversational sentences (the Hero), and all-caps on
+   those reads as shouting rather than confident. */
+.font-display {
+  line-height: 1.02;
 }
 
 ::selection {
-  background: var(--color-amber);
-  color: var(--color-ink);
+  background: var(--color-neon);
+  color: var(--color-bg);
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-steel);
-  outline-offset: 3px;
+/* thin premium scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
 }
-
-/* Technical-drawing paper: the "prancheta" identity, on a light base. */
-.blueprint {
-  background-image:
-    linear-gradient(rgba(47, 100, 150, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(47, 100, 150, 0.07) 1px, transparent 1px);
-  background-size: 32px 32px;
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
 }
-
-/* Hazard-tape rule — a nod to the obra origin, used sparingly as a divider. */
-.tape {
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--color-amber) 0 12px,
-    var(--color-ink) 12px 24px
-  );
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .animate-marquee {
-    animation: none;
-  }
+::-webkit-scrollbar-thumb {
+  background: var(--color-neon);
+  border-radius: 999px;
 }
 
 /* Solid accent instead of a rainbow gradient — the cyan-to-violet text
@@ -200,4 +171,40 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+}
+
+/* Tools: cursor-following highlight on each card (vars set on mousemove). */
+.tool-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), var(--glow), transparent 70%);
+}
+.tool-card:hover .tool-glow {
+  opacity: 1;
+}
+
+/* Tools: a faint orange pulse travelling along the connector line. */
+.tool-flow-line {
+  background: linear-gradient(90deg, transparent, rgba(232, 163, 61, 0.9), rgba(76, 134, 184, 0.6), transparent)
+    no-repeat;
+  background-size: 22% 100%;
+  animation: tool-flow 5s linear infinite;
+}
+@keyframes tool-flow {
+  from {
+    background-position: -30% 0;
+  }
+  to {
+    background-position: 130% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-flow-line,
+  .animate-marquee {
+    animation: none;
+  }
 }

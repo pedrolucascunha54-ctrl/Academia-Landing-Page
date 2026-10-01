@@ -1,14 +1,25 @@
-import { Suspense, lazy } from "react";
-import { MotionConfig } from "framer-motion";
 import ScrollProgress from "./components/ScrollProgress";
 import TopBar from "./components/TopBar";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import VSL from "./components/VSL";
+import AuthorityMarquee from "./components/AuthorityMarquee";
+import Tools from "./components/Tools";
+import Modules from "./components/Modules";
+import Prospecting from "./components/Prospecting";
+import RevenueCalculator from "./components/RevenueCalculator";
+import WhatsIncluded from "./components/WhatsIncluded";
+import Bonuses from "./components/Bonuses";
+import WhoFor from "./components/WhoFor";
+import WhoNotFor from "./components/WhoNotFor";
+import Support from "./components/Support";
+import Portfolio from "./components/Portfolio";
+import Offer from "./components/Offer";
+import FAQ from "./components/FAQ";
+import FinalCTA from "./components/FinalCTA";
+import Footer from "./components/Footer";
 import MobileStickyCTA from "./components/MobileStickyCTA";
 import { WatchGateProvider, useWatchGate } from "./context/WatchGate";
-
-const GatedSections = lazy(() => import("./GatedSections"));
 
 // Nothing below the VSL exists in the page until the visitor has watched it
 // through to the unlock mark — not just the buttons. Rendering nothing means
@@ -16,33 +27,47 @@ const GatedSections = lazy(() => import("./GatedSections"));
 // scrolling past the video either.
 function GatedContent() {
   const { unlocked } = useWatchGate();
+
   if (!unlocked) return null;
+
   return (
-    <Suspense fallback={<div className="min-h-screen" />}>
-      <GatedSections />
-    </Suspense>
+    <>
+      <Support />
+      <Portfolio />
+      <AuthorityMarquee />
+      <Tools />
+      <Modules />
+      <Prospecting />
+      <RevenueCalculator />
+      <WhatsIncluded />
+      <Bonuses />
+      <WhoFor />
+      <WhoNotFor />
+      <Offer />
+      <FAQ />
+      <FinalCTA />
+      <Footer />
+    </>
   );
 }
 
 function App() {
   return (
-    <MotionConfig reducedMotion="user">
-      <WatchGateProvider>
-        <div className="pb-20 sm:pb-0">
-          <ScrollProgress />
-          <TopBar />
-          <Header />
+    <WatchGateProvider>
+      <div className="pb-20 sm:pb-0">
+        <ScrollProgress />
+        <TopBar />
+        <Header />
 
-          <main>
-            <Hero />
-            <VSL />
-            <GatedContent />
-          </main>
+        <main>
+          <Hero />
+          <VSL />
+          <GatedContent />
+        </main>
 
-          <MobileStickyCTA />
-        </div>
-      </WatchGateProvider>
-    </MotionConfig>
+        <MobileStickyCTA />
+      </div>
+    </WatchGateProvider>
   );
 }
 

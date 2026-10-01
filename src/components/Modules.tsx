@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Plus } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
 import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
-import SectionHeading from "./ui/SectionHeading";
-import CTAButton from "./ui/CTAButton";
+import Eyebrow from "./ui/Eyebrow";
+import { CHECKOUT_URL } from "../lib/config";
+import { useWatchGate } from "../context/WatchGate";
 
-type Module = { title: string; tag?: "Novo" | "Em breve"; items: string[] };
-
-const MODULES: Module[] = [
+const MODULES = [
   {
     title: "Fundamentos do mercado de sites",
     items: [
@@ -63,28 +62,6 @@ const MODULES: Module[] = [
     ],
   },
   {
-    title: "E-commerce com Nuvemshop",
-    tag: "Novo",
-    items: [
-      "Criação de uma loja virtual do zero na Nuvemshop.",
-      "Como oferecer a loja como mais uma solução para empresas.",
-      "Como apresentar site e loja virtual juntos.",
-    ],
-  },
-  {
-    title: "Google / SEO local",
-    tag: "Novo",
-    items: [
-      "Criação e configuração do Perfil da Empresa no Google.",
-      "Otimização das informações.",
-      "Categorias e serviços.",
-      "Descrição e presença local.",
-      "Organização do perfil.",
-      "Estratégias para avaliações genuínas.",
-      "Como oferecer site + Google para a mesma empresa.",
-    ],
-  },
-  {
     title: "Prospecção de clientes",
     items: [
       "Como encontrar empresas.",
@@ -120,83 +97,57 @@ const MODULES: Module[] = [
       "Venda de serviços adicionais.",
     ],
   },
-  {
-    title: "Gestão de tráfego",
-    tag: "Em breve",
-    items: [
-      "Aulas que ainda serão gravadas e adicionadas à área de conteúdo.",
-      "Hoje este módulo não faz parte do conteúdo disponível.",
-    ],
-  },
 ];
 
 export default function Modules() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { unlocked } = useWatchGate();
 
   return (
-    <section id="modulos" className="relative w-full bg-sand py-24 sm:py-32">
+    <section id="conteudo" className="relative w-full py-24 sm:py-28">
       <Container>
-        <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <SectionHeading
-              index="04"
-              eyebrow="Conteúdo do treinamento"
-              title="Módulo por módulo."
-              intro="Da primeira página criada até a conversa de fechamento — agora com e-commerce e Google."
-            />
-            <Reveal delay={0.1} className="mt-9 hidden lg:block">
-              <CTAButton variant="ink">Quero ter acesso às aulas</CTAButton>
-            </Reveal>
-          </div>
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <Eyebrow>Conteúdo do treinamento</Eyebrow>
+          <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-paper sm:text-4xl">
+            Do zero ao seu primeiro projeto vendido
+          </h2>
+        </Reveal>
 
-          <div className="border-t border-ink/15">
-            {MODULES.map((mod, i) => {
-              const isOpen = openIndex === i;
-              const panelId = `modulo-${i}`;
-              return (
-                <div key={mod.title} className="border-b border-ink/15">
+        <div className="mx-auto mt-14 max-w-3xl space-y-3">
+          {MODULES.map((mod, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <Reveal key={mod.title} delay={Math.min(i * 0.04, 0.3)}>
+                <div className="glass overflow-hidden rounded-2xl">
                   <button
-                    type="button"
                     onClick={() => setOpenIndex(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
-                    className="group flex w-full items-center gap-4 py-5 text-left sm:gap-6"
+                    className="flex w-full items-center gap-4 px-5 py-5 text-left sm:px-7"
                   >
-                    <span className="w-8 shrink-0 font-mono-tech text-xs text-stone">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-neon/20 to-violet/20 border border-white/10 font-display text-sm font-bold text-cyan">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="flex flex-1 flex-wrap items-center gap-x-3 gap-y-1">
-                      <span className="font-display text-xl font-bold uppercase leading-tight text-ink transition-colors group-hover:text-amber-deep sm:text-2xl">
-                        {mod.title}
-                      </span>
-                      {mod.tag && (
-                        <span
-                          className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-                            mod.tag === "Novo" ? "bg-ink text-amber" : "border border-dashed border-amber-deep/60 text-amber-deep"
-                          }`}
-                        >
-                          {mod.tag}
-                        </span>
-                      )}
+                    <span className="flex-1 font-display text-base font-semibold text-paper sm:text-lg">
+                      {mod.title}
                     </span>
-                    <Plus
-                      className={`h-5 w-5 shrink-0 text-ink transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+                    <ChevronDown
+                      className={`h-5 w-5 shrink-0 text-muted transition-transform duration-300 ${
+                        isOpen ? "rotate-180 text-cyan" : ""
+                      }`}
                     />
                   </button>
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
-                        id={panelId}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <ul className="space-y-2 pb-6 pl-12 sm:pl-14">
+                        <ul className="space-y-2.5 px-5 pb-6 pl-[4.5rem] sm:px-7 sm:pl-[5.25rem]">
                           {mod.items.map((item) => (
-                            <li key={item} className="flex items-start gap-3 text-[15px] leading-relaxed text-ink-soft">
-                              <span className="mt-2.5 h-px w-3 shrink-0 bg-amber-deep" />
+                            <li key={item} className="flex items-start gap-2.5 text-sm text-muted">
+                              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cyan" />
                               {item}
                             </li>
                           ))}
@@ -205,14 +156,22 @@ export default function Modules() {
                     )}
                   </AnimatePresence>
                 </div>
-              );
-            })}
-          </div>
+              </Reveal>
+            );
+          })}
         </div>
 
-        <Reveal className="mt-12 flex justify-center lg:hidden">
-          <CTAButton variant="ink">Quero ter acesso às aulas</CTAButton>
-        </Reveal>
+        {unlocked && (
+          <Reveal className="mt-12 flex justify-center">
+            <a
+              href={CHECKOUT_URL}
+              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-8 py-4 text-sm font-bold text-[#0f1214] shadow-[0_0_35px_rgba(232,163,61,0.4)] transition-transform hover:scale-105 sm:text-base"
+            >
+              QUERO TER ACESSO ÀS AULAS
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          </Reveal>
+        )}
       </Container>
     </section>
   );

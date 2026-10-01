@@ -1,4 +1,4 @@
-import { CHECKOUT_URL, PRICE_INSTALLMENTS } from "../lib/config";
+import { CHECKOUT_URL } from "../lib/config";
 import { useWatchGate } from "../context/WatchGate";
 
 export default function MobileStickyCTA() {
@@ -6,13 +6,12 @@ export default function MobileStickyCTA() {
   if (!unlocked) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-canvas/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md sm:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-[#0f1214]/95 px-4 py-3 backdrop-blur-xl sm:hidden">
       <a
         href={CHECKOUT_URL}
-        className="flex w-full items-center justify-between gap-3 rounded-full bg-amber py-2 pl-5 pr-2 text-ink"
+        className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-neon to-violet px-5 py-3.5 text-sm font-bold text-[#0f1214] shadow-[0_0_25px_rgba(232,163,61,0.35)]"
       >
-        <span className="text-sm font-semibold uppercase tracking-[0.04em]">Quero entrar</span>
-        <span className="rounded-full bg-ink px-3.5 py-2 text-xs font-semibold text-canvas">{PRICE_INSTALLMENTS}</span>
+        QUERO APRENDER AGORA
       </a>
     </div>
   );
