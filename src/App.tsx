@@ -15,6 +15,7 @@ import Bonuses from "./components/Bonuses";
 import WhoFor from "./components/WhoFor";
 import WhoNotFor from "./components/WhoNotFor";
 import Support from "./components/Support";
+import Portfolio from "./components/Portfolio";
 import Offer from "./components/Offer";
 import FAQ from "./components/FAQ";
 import FinalCTA from "./components/FinalCTA";
@@ -45,6 +46,7 @@ function GatedContent() {
   return (
     <>
       <Support />
+      <Portfolio />
       <AuthorityMarquee />
       <Tools />
       <Modules />
