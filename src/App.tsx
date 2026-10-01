@@ -1,22 +1,15 @@
+import { Suspense, lazy } from "react";
 import ScrollProgress from "./components/ScrollProgress";
 import TopBar from "./components/TopBar";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import VSL from "./components/VSL";
-import AuthorityMarquee from "./components/AuthorityMarquee";
-import Tools from "./components/Tools";
-import WhatsIncluded from "./components/WhatsIncluded";
-import Bonuses from "./components/Bonuses";
-import WhoFor from "./components/WhoFor";
-import WhoNotFor from "./components/WhoNotFor";
-import Support from "./components/Support";
-import Portfolio from "./components/Portfolio";
-import Offer from "./components/Offer";
-import FAQ from "./components/FAQ";
-import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import MobileStickyCTA from "./components/MobileStickyCTA";
 import { WatchGateProvider, useWatchGate } from "./context/WatchGate";
+
+// Loaded only after unlock, so first visit downloads just the hero + VSL.
+const GatedSections = lazy(() => import("./GatedSections"));
 
 // Nothing below the VSL exists in the page until the visitor has watched it
 // through to the unlock mark — not just the buttons. Rendering nothing means
@@ -24,25 +17,17 @@ import { WatchGateProvider, useWatchGate } from "./context/WatchGate";
 // scrolling past the video either.
 function GatedContent() {
   const { unlocked } = useWatchGate();
-
   if (!unlocked) return null;
-
   return (
-    <>
-      <Support />
-      <Portfolio />
-      <AuthorityMarquee />
-      <Tools />
-      <WhatsIncluded />
-      <Bonuses />
-      <WhoFor />
-      <WhoNotFor />
-      <Offer />
-      <FAQ />
-      <FinalCTA />
-      <Footer />
-    </>
+    <Suspense fallback={<div className="min-h-screen" />}>
+      <GatedSections />
+    </Suspense>
   );
+}
+
+function GatedFooter() {
+  const { unlocked } = useWatchGate();
+  return unlocked ? <Footer /> : null;
 }
 
 function App() {
@@ -59,6 +44,7 @@ function App() {
           <GatedContent />
         </main>
 
+        <GatedFooter />
         <MobileStickyCTA />
       </div>
     </WatchGateProvider>

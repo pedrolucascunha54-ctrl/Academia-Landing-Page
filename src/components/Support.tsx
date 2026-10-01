@@ -5,37 +5,37 @@ import ScrollCarousel from "./ui/ScrollCarousel";
 import ImageCard from "./ui/ImageCard";
 
 const SUPPORT_IMAGES = [
-  { src: "/images/suporte-01.jpg", alt: "Aluno agradecendo após fechar uma venda e receber o pagamento" },
-  { src: "/images/suporte-02.jpg", alt: "Mentoria tirando dúvida de aluno sobre como abordar clientes" },
-  { src: "/images/suporte-03.jpg", alt: "Mentoria ajudando aluno com follow-up de prospecção" },
-  { src: "/images/suporte-04.jpg", alt: "Aluno fechando venda de site por R$1.000" },
-  { src: "/images/suporte-05.jpg", alt: "Aluno entregando sua primeira landing page" },
-  { src: "/images/suporte-06.jpg", alt: "Alunos impressionados com a qualidade do primeiro site entregue" },
+  { src: "/images/suporte-01.webp", alt: "Aluno agradecendo após fechar uma venda e receber o pagamento" },
+  { src: "/images/suporte-02.webp", alt: "Mentoria tirando dúvida de aluno sobre como abordar clientes" },
+  { src: "/images/suporte-03.webp", alt: "Mentoria ajudando aluno com follow-up de prospecção" },
+  { src: "/images/suporte-04.webp", alt: "Aluno fechando venda de site por R$1.000" },
+  { src: "/images/suporte-05.webp", alt: "Aluno entregando sua primeira landing page" },
+  { src: "/images/suporte-06.webp", alt: "Alunos impressionados com a qualidade do primeiro site entregue" },
   {
-    src: "/images/suporte-07.jpg",
+    src: "/images/suporte-07.webp",
     alt: "Aluno agradecendo no Instagram por ter fechado dois contratos de R$1.200 aplicando os vídeos gratuitos",
   },
   {
-    src: "/images/suporte-08.jpg",
+    src: "/images/suporte-08.webp",
     alt: "Aluno comemorando no grupo um contrato de R$4.500 fechado com uma clínica de estética",
   },
   {
-    src: "/images/suporte-09.jpg",
+    src: "/images/suporte-09.webp",
     alt: "Aluno fechando negócio de R$1.297 por site mais Google Meu Negócio",
   },
   {
-    src: "/images/suporte-10.jpg",
+    src: "/images/suporte-10.webp",
     alt: "Comprovante de Pix de R$1.000 recebido por um aluno que já recuperou o valor do curso com um único site",
   },
   {
-    src: "/images/suporte-11.jpg",
+    src: "/images/suporte-11.webp",
     alt: "Comprovante de Pix de R$800 recebido por aluno comemorando o primeiro de muitos pagamentos",
   },
 ];
 
 export default function Support() {
   return (
-    <section className="relative w-full bg-[#0f1214]">
+    <section id="resultados" className="relative w-full bg-[#0f1214]">
       <Container className="text-center">
         <Reveal className="mx-auto max-w-2xl pt-24 sm:pt-28">
           <Eyebrow>Suporte</Eyebrow>

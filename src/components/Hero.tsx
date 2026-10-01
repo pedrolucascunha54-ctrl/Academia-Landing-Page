@@ -121,8 +121,11 @@ export default function Hero() {
             <div className="absolute left-1/2 top-1/2 -z-10 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-neon/20 to-violet/20 blur-[100px]" />
             <div className="glass glow-border relative aspect-[3/4] overflow-hidden rounded-3xl">
               <img
-                src="/images/instrutor-obra.png"
+                src="/images/instrutor-obra.webp"
                 alt="O instrutor trabalhando como pedreiro, antes de aprender a criar sites com IA"
+                width={800}
+                height={1069}
+                fetchPriority="high"
                 className="h-full w-full object-cover"
               />
             </div>
