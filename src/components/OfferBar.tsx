@@ -14,7 +14,7 @@ function Half({ hidden = false }: { hidden?: boolean }) {
           <strong className="font-extrabold uppercase tracking-wide">Oferta por tempo limitado</strong>
           <span>
             de <span className="line-through opacity-70">{PRICE_ORIGINAL}</span> por{" "}
-            <strong className="font-extrabold">{PRICE_PROMO}</strong> à vista ou {PRICE_INSTALLMENTS}
+            <strong className="text-sm font-extrabold sm:text-base">{PRICE_INSTALLMENTS}</strong> ou {PRICE_PROMO} à vista
           </span>
           <span className="ml-3 h-1.5 w-1.5 rotate-45 bg-[#0f1214]/60" aria-hidden="true" />
         </span>
@@ -25,7 +25,7 @@ function Half({ hidden = false }: { hidden?: boolean }) {
 
 export default function OfferBar() {
   const { unlocked } = useWatchGate();
-  const label = `Oferta por tempo limitado: de ${PRICE_ORIGINAL} por ${PRICE_PROMO} à vista ou ${PRICE_INSTALLMENTS}`;
+  const label = `Oferta por tempo limitado: de ${PRICE_ORIGINAL} por ${PRICE_INSTALLMENTS} ou ${PRICE_PROMO} à vista`;
   const track = (
     <div className="flex w-max animate-marquee motion-reduce:animate-none" style={{ animationDuration: "45s" }}>
       <Half />
@@ -33,16 +33,14 @@ export default function OfferBar() {
     </div>
   );
 
+  if (!unlocked) return null;
+
   return (
     <div className="overflow-hidden bg-gradient-to-r from-neon to-violet py-2 font-semibold text-[#0f1214]">
       <span className="sr-only">{label}</span>
-      {unlocked ? (
-        <a href={CHECKOUT_URL} aria-hidden="true" tabIndex={-1} className="block">
-          {track}
-        </a>
-      ) : (
-        <div aria-hidden="true">{track}</div>
-      )}
+      <a href={CHECKOUT_URL} aria-hidden="true" tabIndex={-1} className="block">
+        {track}
+      </a>
     </div>
   );
 }
