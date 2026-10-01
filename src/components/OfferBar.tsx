@@ -11,7 +11,7 @@ function Half({ hidden = false }: { hidden?: boolean }) {
       {Array.from({ length: REPEAT }).map((_, i) => (
         <span key={i} className="flex shrink-0 items-center gap-2.5 whitespace-nowrap px-6 text-xs sm:text-sm">
           <Flame className="h-3.5 w-3.5 shrink-0 text-[#0f1214]" strokeWidth={2.5} />
-          <strong className="font-extrabold uppercase tracking-wide">Oferta só hoje</strong>
+          <strong className="font-extrabold uppercase tracking-wide">Oferta por tempo limitado</strong>
           <span>
             de <span className="line-through opacity-70">{PRICE_ORIGINAL}</span> por{" "}
             <strong className="font-extrabold">{PRICE_PROMO}</strong> à vista ou {PRICE_INSTALLMENTS}
@@ -25,7 +25,7 @@ function Half({ hidden = false }: { hidden?: boolean }) {
 
 export default function OfferBar() {
   const { unlocked } = useWatchGate();
-  const label = `Oferta só hoje: de ${PRICE_ORIGINAL} por ${PRICE_PROMO} à vista ou ${PRICE_INSTALLMENTS}`;
+  const label = `Oferta por tempo limitado: de ${PRICE_ORIGINAL} por ${PRICE_PROMO} à vista ou ${PRICE_INSTALLMENTS}`;
   const track = (
     <div className="flex w-max animate-marquee motion-reduce:animate-none" style={{ animationDuration: "45s" }}>
       <Half />
