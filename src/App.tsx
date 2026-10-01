@@ -5,9 +5,6 @@ import Hero from "./components/Hero";
 import VSL from "./components/VSL";
 import AuthorityMarquee from "./components/AuthorityMarquee";
 import Tools from "./components/Tools";
-import Modules from "./components/Modules";
-import Prospecting from "./components/Prospecting";
-import RevenueCalculator from "./components/RevenueCalculator";
 import WhatsIncluded from "./components/WhatsIncluded";
 import Bonuses from "./components/Bonuses";
 import WhoFor from "./components/WhoFor";
@@ -36,9 +33,6 @@ function GatedContent() {
       <Portfolio />
       <AuthorityMarquee />
       <Tools />
-      <Modules />
-      <Prospecting />
-      <RevenueCalculator />
       <WhatsIncluded />
       <Bonuses />
       <WhoFor />

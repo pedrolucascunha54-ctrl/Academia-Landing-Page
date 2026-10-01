@@ -67,7 +67,6 @@ export default function Footer() {
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm text-muted">
               <li><a href="#vsl" className="hover:text-paper">Método</a></li>
-              <li><a href="#conteudo" className="hover:text-paper">Conteúdo</a></li>
               <li><a href="#resultados" className="hover:text-paper">Resultados</a></li>
             </ul>
           </div>
